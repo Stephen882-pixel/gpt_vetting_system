@@ -5007,3 +5007,9 @@ DEBUG 2025-04-07 12:19:52,240 views 4326 124986378589888 Cleaned up temporary fi
 INFO 2025-04-07 12:19:52,253 basehttp 4326 124986378589888 "GET /interview/start/ HTTP/1.1" 302 0
 INFO 2025-04-07 12:19:52,362 basehttp 4326 124986378589888 "GET /interview/results/ HTTP/1.1" 200 32486
 INFO 2025-04-13 12:08:38,728 autoreload 6262 131130837889152 Watching for file changes with StatReloader
+INFO 2025-04-13 13:40:35,354 autoreload 9063 135581239660672 Watching for file changes with StatReloader
+INFO 2025-04-13 14:27:48,997 autoreload 26095 133671535526016 Watching for file changes with StatReloader
+INFO 2025-04-13 14:28:33,190 autoreload 26380 129666513502336 Watching for file changes with StatReloader
+INFO 2025-04-13 14:29:01,609 autoreload 26565 133715546927232 Watching for file changes with StatReloader
+INFO 2025-04-13 14:29:34,728 autoreload 26771 126922985205888 Watching for file changes with StatReloader
+INFO 2025-04-13 14:30:17,131 autoreload 27026 124732880556160 Watching for file changes with StatReloader
