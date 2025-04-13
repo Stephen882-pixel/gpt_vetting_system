@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interview Results</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .score-summary {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .score-label {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .score-details {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .question-section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-card {
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .question-content {
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .answer-content {
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .question-score {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .score-good {
+            background-color: #e3f5e9;
+            color: #2e7d32;
+        }
+        .score-medium {
+            background-color: #fff8e1;
+            color: #ff8f00;
+        }
+        .score-poor {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .feedback-toggle {
+            background: none;
+            border: none;
+            color: #2196F3;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0;
+            margin: 0;
+            text-decoration: underline;
+        }
+        .feedback-content {
+            display: none;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .feedback-content.show {
+            display: block;
+        }
+        .feedback-section {
+            margin-bottom: 15px;
+        }
+        .feedback-heading {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .feedback-heading i {
+            margin-right: 6px;
+        }
+        .feedback-list {
+            margin: 0;
+            padding-left: 25px;
+        }
+        .feedback-list li {
+            margin-bottom: 5px;
+        }
+        .icon-check {
+            color: #4CAF50;
+        }
+        .icon-x {
+            color: #F44336;
+        }
+        .icon-info {
+            color: #2196F3;
+        }
+        .action-suggestions {
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .action-title {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #0d47a1;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #43a047;
+        }
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* Script to toggle feedback */
+        script {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Interview Results</h1>
+        </div>
+        
+        <div class="score-summary">
+            <div class="score-label">Average Score</div>
+            <div class="score-display" id="average-score">{{ average_score }}%</div>
+            <div class="score-details">Total Questions: {{ total_questions }}</div>
+        </div>
+        
+        <div class="question-section">
+            <h2 class="section-title">Technical Questions</h2>
+            {% for response in technical_responses %}
+                <div class="question-card">
+                    <div class="question-content">{{ response.question.content }}</div>
+                    <div class="answer-content">
+                        <strong>Your Answer:</strong> {{ response.content }}
+                    </div>
+                    <div class="question-score {% if response.score >= 70 %}score-good{% elif response.score >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                        {{ response.score }}%
+                    </div>
+                    <button class="feedback-toggle" onclick="toggleFeedback('tech-feedback-{{ forloop.counter }}')">
+                        <i class="fas fa-chevron-down"></i> View Detailed Feedback
+                    </button>
+                    <div id="tech-feedback-{{ forloop.counter }}" class="feedback-content">
+                        <!-- We'll parse the feedback in JavaScript -->
+                        <div class="feedback-raw" style="display: none;">{{ response.feedback }}</div>
+                        <div class="feedback-parsed"></div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No technical responses found.</p>
+            {% endfor %}
+        </div>
+        
+        <div class="question-section">
+            <h2 class="section-title">Behavioral Questions</h2>
+            {% for response in behavioral_responses %}
+                <div class="question-card">
+                    <div class="question-content">{{ response.question.content }}</div>
+                    <div class="question-score {% if response.score >= 70 %}score-good{% elif response.score >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                        {{ response.score }}%
+                    </div>
+                    <button class="feedback-toggle" onclick="toggleFeedback('behav-feedback-{{ forloop.counter }}')">
+                        <i class="fas fa-chevron-down"></i> View Detailed Feedback
+                    </button>
+                    <div id="behav-feedback-{{ forloop.counter }}" class="feedback-content">
+                        <!-- We'll parse the feedback in JavaScript -->
+                        <div class="feedback-raw" style="display: none;">{{ response.feedback }}</div>
+                        <div class="feedback-parsed"></div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No behavioral responses found.</p>
+            {% endfor %}
+        </div>
+        
+        {% if average_score < 50 %}
+        <div class="question-section">
+            <h2 class="section-title">Improvement Opportunities</h2>
+            <div class="action-suggestions">
+                <div class="action-title">Key Areas to Focus On:</div>
+                <ul>
+                    <li>Use the STAR method (Situation, Task, Action, Result) for behavioral questions</li>
+                    <li>Implement complete solutions for technical problems, not just placeholders</li>
+                    <li>Include test cases to validate your technical solutions</li>
+                    <li>Practice structured storytelling for behavioral questions</li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="btn-container">
+            <a href="{% url 'interview' %}" class="btn btn-primary">Start New Interview</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+    
+    <script>
+        // Function to toggle feedback visibility
+        function toggleFeedback(id) {
+            var feedback = document.getElementById(id);
+            var button = event.target.closest('.feedback-toggle');
+            var icon = button.querySelector('i');
+            
+            if (feedback.classList.contains('show')) {
+                feedback.classList.remove('show');
+                button.innerHTML = '<i class="fas fa-chevron-down"></i> View Detailed Feedback';
+            } else {
+                feedback.classList.add('show');
+                button.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Detailed Feedback';
+                
+                // Parse feedback if not already done
+                var parsedContent = feedback.querySelector('.feedback-parsed');
+                if (parsedContent.innerHTML === '') {
+                    var rawFeedback = feedback.querySelector('.feedback-raw').innerText;
+                    parseFeedback(rawFeedback, parsedContent);
+                }
+            }
+        }
+        
+        // Function to parse and structure feedback
+        function parseFeedback(rawFeedback, targetElement) {
+            // Extract main categories from feedback
+            let sections = [];
+            
+            // Check if feedback contains technical assessment terms
+            if (rawFeedback.includes('Correctness:') || 
+                rawFeedback.includes('Efficiency:') || 
+                rawFeedback.includes('Code Quality:') ||
+                rawFeedback.includes('Test Case Coverage:')) {
+                
+                // Technical question parsing
+                sections.push(createFeedbackSection('Correctness', extractSection(rawFeedback, 'Correctness:'), 'code'));
+                sections.push(createFeedbackSection('Efficiency', extractSection(rawFeedback, 'Efficiency:'), 'tachometer-alt'));
+                sections.push(createFeedbackSection('Code Quality', extractSection(rawFeedback, 'Code Quality:'), 'file-code'));
+                sections.push(createFeedbackSection('Test Coverage', extractSection(rawFeedback, 'Test Case Coverage:'), 'vial'));
+                sections.push(createFeedbackSection('Improvement Actions', extractImprovementPoints(rawFeedback), 'lightbulb'));
+                
+            } else if (rawFeedback.includes('Communication Clarity:') || 
+                      rawFeedback.includes('Storytelling Effectiveness:') || 
+                      rawFeedback.includes('Problem-Solving Demonstration:') ||
+                      rawFeedback.includes('Relevance to the Question:')) {
+                
+                // Behavioral question parsing
+                sections.push(createFeedbackSection('Communication', extractSection(rawFeedback, 'Communication Clarity:'), 'comment'));
+                sections.push(createFeedbackSection('Storytelling', extractSection(rawFeedback, 'Storytelling Effectiveness:'), 'book'));
+                sections.push(createFeedbackSection('Problem-Solving', extractSection(rawFeedback, 'Problem-Solving Demonstration:'), 'puzzle-piece'));
+                sections.push(createFeedbackSection('Relevance', extractSection(rawFeedback, 'Relevance to the Question:'), 'bullseye'));
+                sections.push(createFeedbackSection('Strengths', extractStrengths(rawFeedback), 'check-circle'));
+                sections.push(createFeedbackSection('Areas to Improve', extractAreasToImprove(rawFeedback), 'exclamation-circle'));
+                sections.push(createFeedbackSection('Actionable Tips', extractActionableTips(rawFeedback), 'lightbulb'));
+                
+            } else {
+                // Fallback for other feedback formats
+                sections.push(createFeedbackSection('Feedback Summary', summarizeFeedback(rawFeedback), 'comment-dots'));
+                sections.push(createFeedbackSection('Key Points', extractKeyPoints(rawFeedback), 'list'));
+            }
+            
+            // Render all sections
+            sections.forEach(section => {
+                if (section) {
+                    targetElement.appendChild(section);
+                }
+            });
+        }
+        
+        // Helper functions
+        function createFeedbackSection(title, content, iconName) {
+            if (!content) return null;
+            
+            const section = document.createElement('div');
+            section.className = 'feedback-section';
+            
+            const heading = document.createElement('div');
+            heading.className = 'feedback-heading';
+            heading.innerHTML = `<i class="fas fa-${iconName}"></i> ${title}`;
+            
+            section.appendChild(heading);
+            
+            if (Array.isArray(content)) {
+                const list = document.createElement('ul');
+                list.className = 'feedback-list';
+                content.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = item;
+                    list.appendChild(li);
+                });
+                section.appendChild(list);
+            } else {
+                const text = document.createElement('p');
+                text.innerHTML = content;
+                section.appendChild(text);
+            }
+            
+            return section;
+        }
+        
+        function extractSection(text, sectionHeader) {
+            if (!text.includes(sectionHeader)) return null;
+            
+            const startIdx = text.indexOf(sectionHeader) + sectionHeader.length;
+            let endIdx = text.length;
+            
+            // Find next section if any
+            const nextSectionMatch = text.substring(startIdx).match(/[A-Z][a-z]+ [A-Z][a-z]+:/);
+            if (nextSectionMatch) {
+                endIdx = startIdx + text.substring(startIdx).indexOf(nextSectionMatch[0]);
+            }
+            
+            const sectionText = text.substring(startIdx, endIdx).trim();
+            return sectionText;
+        }
+        
+        function extractStrengths(text) {
+            const strengths = [];
+            const strengthsRegex = /\*\*Strengths:\*\*(.*?)(?=\*\*Areas of Improvement|\*\*Actionable|$)/gs;
+            const match = strengthsRegex.exec(text);
+            
+            if (match && match[1]) {
+                const strengthText = match[1].trim();
+                if (strengthText.includes('There are no strengths')) {
+                    strengths.push('Focus on improving all areas as significant improvement is needed.');
+                } else {
+                    // Extract individual strengths
+                    const strengthPoints = strengthText.split('*').filter(s => s.trim().length > 0);
+                    strengthPoints.forEach(point => {
+                        strengths.push(point.trim());
+                    });
+                }
+            }
+            
+            return strengths.length > 0 ? strengths : null;
+        }
+        
+        function extractAreasToImprove(text) {
+            const areas = [];
+            const areasRegex = /\*\*Areas of Improvement:\*\*(.*?)(?=\*\*Actionable|$)/gs;
+            const match = areasRegex.exec(text);
+            
+            if (match && match[1]) {
+                // Extract individual areas
+                const areaPoints = match[1].split('*').filter(a => a.trim().length > 0);
+                areaPoints.forEach(point => {
+                    areas.push(point.trim());
+                });
+            }
+            
+            return areas.length > 0 ? areas : null;
+        }
+        
+        function extractActionableTips(text) {
+            const tips = [];
+            const tipsRegex = /\*\*Actionable Insights:\*\*(.*?)(?=\*\*Overall|$)/gs;
+            const match = tipsRegex.exec(text);
+            
+            if (match && match[1]) {
+                // Extract individual tips
+                const tipPoints = match[1].split('*').filter(t => t.trim().length > 0);
+                tipPoints.forEach(point => {
+                    tips.push(point.trim());
+                });
+            }
+            
+            return tips.length > 0 ? tips : null;
+        }
+        
+        function extractImprovementPoints(text) {
+            // Try to extract code-specific improvement suggestions
+            const points = [];
+            const improvementSection = text.includes('Feedback:') ? 
+                extractSection(text, 'Feedback:') : 
+                text;
+            
+            if (improvementSection) {
+                // Look for common patterns in code feedback
+                if (improvementSection.includes('implement')) {
+                    points.push('Implement a complete solution instead of a placeholder');
+                }
+                if (improvementSection.includes('test case') || improvementSection.includes('edge case')) {
+                    points.push('Include comprehensive test cases to validate your solution');
+                }
+                if (improvementSection.includes('sort')) {
+                    points.push('Consider using sorting for efficient data processing');
+                }
+                if (improvementSection.includes('efficiency') || improvementSection.includes('complexity')) {
+                    points.push('Focus on algorithmic efficiency and complexity optimization');
+                }
+                
+                // If we couldn't extract specific points, offer generic guidance
+                if (points.length === 0) {
+                    const sentences = improvementSection.split('.').filter(s => s.trim().length > 3);
+                    for (let i = 0; i < Math.min(3, sentences.length); i++) {
+                        points.push(sentences[i].trim());
+                    }
+                }
+            }
+            
+            return points.length > 0 ? points : ['Review the detailed feedback and implement a complete solution'];
+        }
+        
+        function summarizeFeedback(text) {
+            if (text.length <= 100) return text;
+            
+            // Try to extract a summary from the text
+            const firstSentences = text.split('.').slice(0, 2).join('. ') + '.';
+            return firstSentences;
+        }
+        
+        function extractKeyPoints(text) {
+            const points = [];
+            const sentences = text.split('.').filter(s => s.trim().length > 0);
+            
+            sentences.forEach(sentence => {
+                const trimmed = sentence.trim();
+                // Look for sentences that might contain key points
+                if (trimmed.includes('should') || 
+                    trimmed.includes('needs to') || 
+                    trimmed.includes('must') || 
+                    trimmed.includes('important') ||
+                    trimmed.includes('recommended')) {
+                    points.push(trimmed);
+                }
+            });
+            
+            // If we couldn't find specific points, take first few sentences
+            if (points.length === 0) {
+                for (let i = 0; i < Math.min(3, sentences.length); i++) {
+                    points.push(sentences[i].trim());
+                }
+            }
+            
+            return points.length > 0 ? points : null;
+        }
+        
+        // Color the average score based on its value
+        window.onload = function() {
+            var scoreElement = document.getElementById('average-score');
+            var score = parseFloat(scoreElement.textContent);
+            if (score >= 70) {
+                scoreElement.style.color = '#2e7d32';
+            } else if (score >= 40) {
+                scoreElement.style.color = '#ff8f00';
+            } else {
+                scoreElement.style.color = '#c62828';
+            }
+        }
+    </script>
+</body>
+</html>

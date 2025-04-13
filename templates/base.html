@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}AI Interview System{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">AI Interview</a>
+            <div class="collapse navbar-collapse">
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'skill_list' %}">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'interview_list' %}">Interviews</a></li>
+                    </ul>
+                    <span class="navbar-text">Hello, {{ user.username }}!</span>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-danger ms-3">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary ms-3">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-success ms-2">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

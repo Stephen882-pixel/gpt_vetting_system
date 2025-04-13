@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Interview Prep</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .home-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin: 0;
+        }
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+            margin: 10px 0 20px 0;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        .btn-secondary {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #1e88e5;
+        }
+        .btn-danger {
+            background-color: #F44336;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #e53935;
+        }
+        .skills-section, .recent-results-section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .skills-section h3, .recent-results-section h3 {
+            font-size: 1.8em;
+            color: #333;
+            margin: 0 0 15px 0;
+        }
+        .skills-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .skills-section li {
+            font-size: 1.1em;
+            color: #444;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .skills-section li:last-child {
+            border-bottom: none;
+        }
+        .skills-section li span {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .recent-results-section p {
+            font-size: 1.1em;
+            color: #444;
+            margin: 5px 0;
+        }
+        .recent-results-section .no-results {
+            color: #777;
+            font-style: italic;
+        }
+        .recent-results-section .score {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .error-message {
+            color: #F44336;
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <div class="header">
+            <h2>Welcome, {{ user.username }}!</h2>
+            <p>Ready to ace your next interview? Let’s get started!</p>
+            <div class="action-buttons">
+                <a href="{% url 'skill_create' %}" class="btn btn-primary">Add Skill</a>
+                {% if skills %}
+                    <a href="{% url 'interview' %}" class="btn btn-primary">Start Interview</a>
+                    <a href="{% url 'interview_results' %}" class="btn btn-secondary">View Past Results</a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        {% if skills %}
+            <div class="skills-section">
+                <h3>Your Skills</h3>
+                <ul>
+                    {% for skill in skills %}
+                        <li>{{ skill.language }} <span>({{ skill.proficiency }} years)</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="recent-results-section">
+            <h3>Recent Interview Results</h3>
+            {% if recent_interview %}
+                <p>Completed on: {{ recent_interview.completed_at|date:"F d, Y" }}</p>
+                <p>Number of Questions: {{ recent_interview.total_questions }}</p>
+                <p>Average Score: <span class="score">{{ recent_interview.average_score }}%</span></p>
+                <a href="{% url 'interview_results' %}" class="btn btn-secondary">View Details</a>
+            {% else %}
+                <p class="no-results">No recent interviews found. Start an interview to see your results!</p>
+            {% endif %}
+        </div>
+
+        <div class="action-buttons">
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

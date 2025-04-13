@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interview Question</title>
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/theme/dracula.min.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --success-color: #06d6a0;
+            --warning-color: #ffbe0b;
+            --danger-color: #ef476f;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f0f2f5;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        header h1 {
+            font-size: 24px;
+            text-align: center;
+            margin: 0;
+        }
+        
+        .question-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .question-type {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .question-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-bar {
+            width: 200px;
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+        
+        .question-content {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .question-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .meta-item {
+            background-color: var(--light-bg);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .meta-item i {
+            color: var(--primary-color);
+        }
+        
+        .editor-container {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .editor-header {
+            background-color: #282a36;
+            padding: 12px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .editor-header h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .CodeMirror {
+            height: 500px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.6;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+        
+        .video-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .video-header {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background-color: #000;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        #video-preview {
+            width: 100%;
+            display: block;
+            border-radius: var(--border-radius);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background-color: #232323;
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 30px;
+            display: block;
+            margin: 0 auto;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .error-message {
+            background-color: rgba(239, 71, 111, 0.1);
+            border-left: 4px solid var(--danger-color);
+            color: var(--danger-color);
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-message {
+            background-color: rgba(58, 134, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .progress-bar {
+                width: 100%;
+            }
+            
+            .meta-item {
+                padding: 8px 12px;
+            }
+            
+            .submit-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Interview Assessment</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="question-card">
+            {% if error %}
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ error }}
+                </div>
+            {% endif %}
+            
+            <div class="question-header">
+                <div class="question-title">
+                    <i class="fas fa-clipboard-question"></i>
+                    <span class="question-type">{{ question.type|capfirst }}</span>
+                    Question {{ current_question }} of {{ total_questions }}
+                </div>
+                
+                <div class="question-progress">
+                    <span>Progress:</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ current_question|floatformat:0|default:1 }}%"></div>
+                    </div>
+                    <span>{{ current_question }}/{{ total_questions }}</span>
+                </div>
+            </div>
+            
+            <div class="question-content">
+                <p>{{ question.content }}</p>
+            </div>
+            
+            <div class="question-meta">
+                <div class="meta-item">
+                    <i class="fas fa-code-branch"></i>
+                    <span><strong>Question Type:</strong> {{ question.type|capfirst }}</span>
+                </div>
+                
+                {% if question.type == 'technical' and question.skill %}
+                <div class="meta-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <span><strong>Language:</strong> {{ question.skill.language }}</span>
+                </div>
+                {% endif %}
+                
+                <div class="meta-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span><strong>Completed:</strong> {{ total_questions|add:"-"|add:remaining_questions }}/{{ total_questions }}</span>
+                </div>
+                
+                <div class="meta-item">
+                    <i class="fas fa-hourglass-half"></i>
+                    <span><strong>Remaining:</strong> {{ remaining_questions }}</span>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" id="response-form" enctype="multipart/form-data" onsubmit="return validateForm()">
+            {% csrf_token %}
+            {% if question.type == 'technical' %}
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <h3>
+                            <i class="fas fa-code"></i>
+                            Code Solution ({{ question.skill.language }})
+                        </h3>
+                        <div class="editor-actions">
+                            <span id="char-count">0 characters</span>
+                        </div>
+                    </div>
+                    <textarea id="code-editor" name="content" style="display:none;"></textarea>
+                </div>
+                <div id="error-container" class="error-message hidden"></div>
+            {% else %}
+                <div class="video-container">
+                    <div class="video-header">
+                        <i class="fas fa-video"></i>
+                        <h3>Record Your Response</h3>
+                    </div>
+                    
+                    <div class="video-wrapper">
+                        <video id="video-preview" controls autoplay muted></video>
+                    </div>
+                    
+                    <div class="video-controls">
+                        <button type="button" id="start-recording" class="btn btn-primary">
+                            <i class="fas fa-record-vinyl"></i> Start Recording
+                        </button>
+                        <button type="button" id="stop-recording" class="btn btn-danger" disabled>
+                            <i class="fas fa-stop-circle"></i> Stop Recording
+                        </button>
+                    </div>
+                    
+                    <input type="file" id="video-upload" name="video" accept="video/*" style="display:none;">
+                    <div id="video-error" class="error-message hidden"></div>
+                    <div id="video-info" class="info-message">
+                        <i class="fas fa-info-circle"></i>
+                        Ensure your microphone is on and speak clearly.
+                    </div>
+                </div>
+            {% endif %}
+            
+            <button type="submit" class="submit-button">
+                Submit Response
+            </button>
+        </form>
+    </div>
+
+    <!-- CodeMirror Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/edit/closebrackets.min.js"></script>
+
+    <script>
+        let editor, stream;
+        
+        // Calculate progress percentage
+        const currentQuestion = {{ current_question }};
+        const totalQuestions = {{ total_questions }};
+        const progressPercent = (currentQuestion / totalQuestions) * 100;
+        document.querySelector('.progress').style.width = progressPercent + '%';
+
+        // Form validation
+        function validateForm() {
+            {% if question.type == 'technical' %}
+                editor.save();
+                const codeContent = document.getElementById('code-editor').value.trim();
+                if (!codeContent) {
+                    const errorElement = document.getElementById('error-container');
+                    errorElement.textContent = 'Code cannot be empty.';
+                    errorElement.classList.remove('hidden');
+                    return false;
+                }
+            {% else %}
+                const videoUpload = document.getElementById('video-upload');
+                if (!videoUpload.files.length) {
+                    const errorElement = document.getElementById('video-error');
+                    errorElement.textContent = 'Please record a video before submitting.';
+                    errorElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please record a video before submitting.';
+                    errorElement.classList.remove('hidden');
+                    return false;
+                }
+            {% endif %}
+            return true;
+        }
+
+        // Technical question: CodeMirror setup
+        {% if question.type == 'technical' %}
+            const skillLanguage = "{{ question.skill.language|lower|default:'java' }}";
+            const languageModes = {
+                'java': 'text/x-java',
+                'python': 'text/x-python',
+                'javascript': 'text/javascript',
+                'cpp': 'text/x-c++src'
+            };
+            const templates = {
+                'java': `public class Solution {\n    public static void main(String[] args) {\n        // Your solution here\n    }\n}`,
+                'python': `def solution():\n    # Your solution here\n    pass\n\nif __name__ == "__main__":\n    solution()`,
+                'javascript': `function solution() {\n    // Your solution here\n}\n\nconsole.log(solution());`,
+                'cpp': `#include <iostream>\n\nint main() {\n    // Your solution here\n    return 0;\n}`
+            };
+
+            editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+                mode: languageModes[skillLanguage] || 'text/x-java',
+                theme: "dracula",
+                lineNumbers: true,
+                lineWrapping: true,
+                autoCloseBrackets: true,
+                matchBrackets: true,
+                indentUnit: 4,
+                tabSize: 4,
+                indentWithTabs: false,
+                extraKeys: {
+                    "Tab": "insertSoftTab",
+                    "Shift-Tab": "indentLess"
+                }
+            });
+
+            if (!editor.getValue().trim()) {
+                editor.setValue(templates[skillLanguage] || templates['java']);
+            }
+            
+            // Character count
+            const updateCharCount = () => {
+                const count = editor.getValue().length;
+                document.getElementById('char-count').textContent = count + ' characters';
+            };
+            
+            editor.on('change', updateCharCount);
+            updateCharCount();
+        {% endif %}
+
+        // Behavioral question: Video recording setup
+        {% if question.type != 'technical' %}
+            let mediaRecorder;
+            let recordedChunks = [];
+            const videoElement = document.getElementById('video-preview');
+            const startButton = document.getElementById('start-recording');
+            const stopButton = document.getElementById('stop-recording');
+            const videoUpload = document.getElementById('video-upload');
+            const videoError = document.getElementById('video-error');
+            const videoInfo = document.getElementById('video-info');
+            
+            // Add recording timer elements
+            const videoWrapper = document.querySelector('.video-wrapper');
+            const timerDisplay = document.createElement('div');
+            timerDisplay.className = 'recording-timer';
+            timerDisplay.style.position = 'absolute';
+            timerDisplay.style.top = '10px';
+            timerDisplay.style.right = '10px';
+            timerDisplay.style.background = 'rgba(0,0,0,0.6)';
+            timerDisplay.style.color = '#fff';
+            timerDisplay.style.padding = '5px 10px';
+            timerDisplay.style.borderRadius = '4px';
+            timerDisplay.style.fontSize = '14px';
+            timerDisplay.style.fontWeight = 'bold';
+            timerDisplay.style.display = 'none';
+            videoWrapper.appendChild(timerDisplay);
+            
+            let timer;
+            let recordingSeconds = 0;
+            
+            const updateTimer = () => {
+                const minutes = Math.floor(recordingSeconds / 60);
+                const seconds = recordingSeconds % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                recordingSeconds++;
+            };
+
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then(mediaStream => {
+                    stream = mediaStream;
+                    videoElement.srcObject = stream;
+
+                    // Verify audio tracks
+                    const audioTracks = stream.getAudioTracks();
+                    if (audioTracks.length === 0) {
+                        videoError.innerHTML = '<i class="fas fa-exclamation-circle"></i> No microphone detected. Please connect a microphone and refresh.';
+                        videoError.classList.remove('hidden');
+                        startButton.disabled = true;
+                        stopButton.disabled = true;
+                        return;
+                    }
+
+                    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp8,opus' });
+
+                    mediaRecorder.ondataavailable = event => {
+                        recordedChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        clearInterval(timer);
+                        timerDisplay.style.display = 'none';
+                        
+                        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                        const file = new File([blob], 'response.webm', { type: 'video/webm' });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        videoUpload.files = dataTransfer.files;
+
+                        videoElement.srcObject = null;
+                        videoElement.src = URL.createObjectURL(blob);
+                        videoElement.muted = false;
+
+                        stream.getTracks().forEach(track => track.stop());
+                        stream = null;
+                        videoInfo.innerHTML = '<i class="fas fa-check-circle"></i> Recording stopped. Review your video and submit.';
+                    };
+
+                    startButton.addEventListener('click', () => {
+                        recordedChunks = [];
+                        recordingSeconds = 0;
+                        timerDisplay.textContent = '00:00';
+                        timerDisplay.style.display = 'block';
+                        
+                        mediaRecorder.start();
+                        startButton.disabled = true;
+                        stopButton.disabled = false;
+                        videoError.classList.add('hidden');
+                        videoInfo.innerHTML = '<i class="fas fa-microphone"></i> Recording... Speak clearly into your microphone.';
+                        
+                        timer = setInterval(updateTimer, 1000);
+                    });
+
+                    stopButton.addEventListener('click', () => {
+                        mediaRecorder.stop();
+                        startButton.disabled = false;
+                        stopButton.disabled = true;
+                    });
+                })
+                .catch(err => {
+                    console.error('Error accessing media devices:', err);
+                    videoError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Unable to access camera or microphone. Please grant permissions and ensure devices are connected.';
+                    videoError.classList.remove('hidden');
+                    startButton.disabled = true;
+                    stopButton.disabled = true;
+                });
+
+            window.addEventListener('beforeunload', () => {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+            });
+        {% endif %}
+    </script>
+</body>
+</html>
