@@ -2,97 +2,240 @@
 <html>
 <head>
     <title>Add Skill - Interview Prep</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-hover: #3a56d4;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --danger-color: #ef476f;
+            --success-color: #06d6a0;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
             padding: 0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
+
         .skill-container {
-            max-width: 400px;
-            width: 100%;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            max-width: 450px;
+            width: 90%;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 35px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
+
+        .skill-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
         h2 {
-            font-size: 2em;
-            color: #333;
-            margin-bottom: 20px;
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
         }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
+            margin-top: 25px;
         }
-        label {
-            font-size: 1.1em;
-            color: #555;
+
+        .form-group {
             text-align: left;
         }
+
+        label {
+            font-size: 1.1em;
+            color: var(--text-primary);
+            text-align: left;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
         select,
         input[type="number"] {
-            padding: 10px;
+            padding: 12px 15px;
             font-size: 1em;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
             width: 100%;
             box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+            color: var(--text-primary);
         }
+
         select:focus,
         input[type="number"]:focus {
             outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+            background-color: #fff;
         }
+
         .errorlist {
-            color: #F44336;
+            color: var(--danger-color);
             font-size: 0.9em;
-            margin: 0;
+            margin: 5px 0 0 0;
             padding: 0;
             list-style: none;
         }
+
         .helptext {
             font-size: 0.85em;
-            color: #777;
+            color: var(--text-secondary);
             margin: 5px 0 0 0;
             text-align: left;
         }
+
         .btn {
-            padding: 10px;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
             text-decoration: none;
-            font-size: 1.1em;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: all 0.3s ease;
             border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: background-color 0.3s;
+            width: 100%;
         }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
         .btn-primary {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .btn-primary:hover {
-            background-color: #45a049;
-        }
-        .btn-secondary {
-            background-color: #2196F3;
+            background-color: var(--primary-color);
             color: white;
             margin-top: 10px;
         }
-        .btn-secondary:hover {
-            background-color: #1e88e5;
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #352fb3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
         .note {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 15px;
+            font-size: 1em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .note::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .icon-input {
+            position: relative;
+        }
+
+        .icon-input i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .icon-input select,
+        .icon-input input {
+            padding-left: 40px;
+        }
+
+        @media (max-width: 500px) {
+            .skill-container {
+                width: 95%;
+                padding: 25px 20px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .btn {
+                padding: 10px 15px;
+            }
         }
     </style>
 </head>
@@ -102,40 +245,54 @@
         <p class="note">Select your programming language and years of experience.</p>
         <form method="post">
             {% csrf_token %}
-            <div>
-                <label for="{{ form.language.id_for_label }}">Language</label>
-                <select name="language" id="{{ form.language.id_for_label }}" required>
-                    <option value="" disabled selected>Select a language</option>
-                    <option value="Java" {% if form.language.value == "Java" %}selected{% endif %}>Java</option>
-                    <option value="Python" {% if form.language.value == "Python" %}selected{% endif %}>Python</option>
-                    <option value="JavaScript" {% if form.language.value == "JavaScript" %}selected{% endif %}>JavaScript</option>
-                    <option value="C++" {% if form.language.value == "C++" %}selected{% endif %}>C++</option>
-                </select>
+            <div class="form-group">
+                <label for="{{ form.language.id_for_label }}">
+                    <i class="fas fa-code"></i> Programming Language
+                </label>
+                <div class="icon-input">
+                    <i class="fas fa-laptop-code"></i>
+                    <select name="language" id="{{ form.language.id_for_label }}" required>
+                        <option value="" disabled selected>Select a language</option>
+                        <option value="Java" {% if form.language.value == "Java" %}selected{% endif %}>Java</option>
+                        <option value="Python" {% if form.language.value == "Python" %}selected{% endif %}>Python</option>
+                        <option value="JavaScript" {% if form.language.value == "JavaScript" %}selected{% endif %}>JavaScript</option>
+                        <option value="C++" {% if form.language.value == "C++" %}selected{% endif %}>C++</option>
+                    </select>
+                </div>
                 {% if form.language.errors %}
                     <ul class="errorlist">
                         {% for error in form.language.errors %}
-                            <li>{{ error }}</li>
+                            <li><i class="fas fa-exclamation-circle"></i> {{ error }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
             </div>
-            <div>
-                <label for="{{ form.proficiency.id_for_label }}">Proficiency (years)</label>
-                {{ form.proficiency }}
+            <div class="form-group">
+                <label for="{{ form.proficiency.id_for_label }}">
+                    <i class="fas fa-chart-line"></i> Experience Level
+                </label>
+                <div class="icon-input">
+                    <i class="fas fa-calendar-alt"></i>
+                    {{ form.proficiency }}
+                </div>
                 {% if form.proficiency.help_text %}
                     <p class="helptext">{{ form.proficiency.help_text }}</p>
                 {% endif %}
                 {% if form.proficiency.errors %}
                     <ul class="errorlist">
                         {% for error in form.proficiency.errors %}
-                            <li>{{ error }}</li>
+                            <li><i class="fas fa-exclamation-circle"></i> {{ error }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Save Skill
+            </button>
         </form>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
     </div>
 </body>
 </html>

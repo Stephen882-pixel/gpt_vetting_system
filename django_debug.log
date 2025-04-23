@@ -7098,3 +7098,610 @@ Describe a situation where you disagreed with a team member. How did you handle 
 Give me an example of a time you failed to meet a deadline. What caused the delay, and what did you learn from the experience?
 
 INFO 2025-04-23 03:45:03,065 basehttp 22085 130963926402752 "GET /interview/start/ HTTP/1.1" 200 25122
+INFO 2025-04-23 03:47:38,833 autoreload 23498 131941868400768 Watching for file changes with StatReloader
+INFO 2025-04-23 03:50:27,980 autoreload 23498 131941868400768 /home/stephen/Desktop/Interview AI/interview/interview/settings.py changed, reloading.
+INFO 2025-04-23 03:50:29,238 autoreload 24753 127357121020032 Watching for file changes with StatReloader
+INFO 2025-04-23 03:51:08,774 autoreload 24753 127357121020032 /home/stephen/Desktop/Interview AI/interview/interview/settings.py changed, reloading.
+INFO 2025-04-23 03:51:10,640 autoreload 24984 137541198729344 Watching for file changes with StatReloader
+INFO 2025-04-23 03:51:27,050 autoreload 24984 137541198729344 /home/stephen/Desktop/Interview AI/interview/interview/settings.py changed, reloading.
+INFO 2025-04-23 03:51:28,273 autoreload 25076 137295180595328 Watching for file changes with StatReloader
+INFO 2025-04-23 03:51:49,762 autoreload 25076 137295180595328 /home/stephen/Desktop/Interview AI/interview/interview/settings.py changed, reloading.
+INFO 2025-04-23 03:51:50,822 autoreload 25189 134367990608000 Watching for file changes with StatReloader
+INFO 2025-04-23 03:52:07,725 basehttp 25189 134367810848448 "POST /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 03:52:07,814 basehttp 25189 134367810848448 "GET /interview/start/ HTTP/1.1" 200 25224
+WARNING 2025-04-23 03:52:07,840 log 25189 134367819241152 Forbidden (CSRF token missing.): /interview/save_screen_recording/
+INFO 2025-04-23 03:53:35,505 basehttp 25189 134367810848448 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-04-23 03:53:35,518 basehttp 25189 134367810848448 "GET /login/ HTTP/1.1" 200 3465
+INFO 2025-04-23 03:53:39,854 basehttp 25189 134367810848448 "GET /register/ HTTP/1.1" 200 5265
+INFO 2025-04-23 04:02:53,968 autoreload 25189 134367990608000 /home/stephen/Desktop/Interview AI/interview/core/views.py changed, reloading.
+INFO 2025-04-23 04:02:54,925 autoreload 29485 132845940244608 Watching for file changes with StatReloader
+INFO 2025-04-23 04:03:25,903 autoreload 29485 132845940244608 /home/stephen/Desktop/Interview AI/interview/core/views.py changed, reloading.
+INFO 2025-04-23 04:03:26,667 autoreload 29673 136942294794368 Watching for file changes with StatReloader
+INFO 2025-04-23 04:03:48,409 autoreload 29673 136942294794368 /home/stephen/Desktop/Interview AI/interview/core/views.py changed, reloading.
+INFO 2025-04-23 04:03:48,982 autoreload 29817 126107980902528 Watching for file changes with StatReloader
+INFO 2025-04-23 04:05:39,007 autoreload 30485 123394306490496 Watching for file changes with StatReloader
+INFO 2025-04-23 04:06:22,372 basehttp 30485 123394135684800 "POST /register/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:06:22,393 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 3767
+INFO 2025-04-23 04:06:29,564 basehttp 30485 123394135684800 "GET /skill/create/ HTTP/1.1" 200 3775
+INFO 2025-04-23 04:06:35,644 basehttp 30485 123394135684800 "POST /skill/create/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:06:35,660 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 4227
+INFO 2025-04-23 04:06:47,172 views 30485 123394135684800 Raw technical response: Implement a function to reverse a singly linked list in place.
+Write a Java program to find the first non-repeated character in a string.
+Design a class representing a thread-safe bounded buffer.
+
+INFO 2025-04-23 04:06:48,082 views 30485 123394135684800 Raw behavioral response: Tell me about a time you had to adapt to a significant change in your work environment. How did you approach the situation, and what was the outcome?
+
+Describe a situation where you had to work with someone who had a very different work style than your own. How did you navigate the differences, and what did you learn from the experience?
+
+Give me an example of a time you made a mistake at work. What did you do to address it, and what did you learn from it?
+
+INFO 2025-04-23 04:06:48,162 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 200 25056
+INFO 2025-04-23 04:07:50,071 basehttp 30485 123394127292096 "POST /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:07:50,090 basehttp 30485 123394135684800 "POST /interview/save_screen_recording/ HTTP/1.1" 200 36
+INFO 2025-04-23 04:07:50,153 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 200 25069
+INFO 2025-04-23 04:08:20,459 basehttp 30485 123394135684800 "POST /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:08:20,479 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 200 25052
+INFO 2025-04-23 04:08:47,860 basehttp 30485 123394135684800 "POST /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:08:47,900 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 200 27374
+WARNING 2025-04-23 04:08:49,104 log 30485 123394135684800 Not Found: /favicon.ico
+WARNING 2025-04-23 04:08:49,106 basehttp 30485 123394135684800 "GET /favicon.ico HTTP/1.1" 404 4335
+INFO 2025-04-23 04:09:12,208 basehttp 30485 123394135684800 "POST /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:09:12,254 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 200 27413
+WARNING 2025-04-23 04:09:13,181 log 30485 123394135684800 Not Found: /favicon.ico
+WARNING 2025-04-23 04:09:13,183 basehttp 30485 123394135684800 "GET /favicon.ico HTTP/1.1" 404 4335
+INFO 2025-04-23 04:09:32,654 basehttp 30485 123394135684800 "POST /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:09:32,671 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 200 27344
+WARNING 2025-04-23 04:09:33,539 log 30485 123394135684800 Not Found: /favicon.ico
+WARNING 2025-04-23 04:09:33,540 basehttp 30485 123394135684800 "GET /favicon.ico HTTP/1.1" 404 4335
+INFO 2025-04-23 04:09:49,609 basehttp 30485 123394135684800 "POST /interview/start/ HTTP/1.1" 302 0
+DEBUG 2025-04-23 04:09:52,092 views 30485 123394135684800 Raw Gemini response for technical evaluation: - Correctness: Correct. The solution correctly reverses the singly linked list in place. It handles the base case (empty list or single-node list implicitly).
+
+- Efficiency: Time Complexity: O(n). The while loop iterates through each node in the list once. Space Complexity: O(1). The reversal is done in place, using only a constant amount of extra memory for `prev`, `current`, and `next_node`.
+
+- Code Quality: Excellent. The code is well-structured and easy to read. The variable names (`prev`, `current`, `next_node`) are descriptive and contribute to the clarity of the algorithm. The comments are helpful, particularly the one explaining `Save next`. The code follows common Python conventions.
+
+- Test Case Coverage: The solution should handle the following cases:
+    1. Empty list (head is None). This is implicitly handled correctly; the while loop does not execute, and `prev` (which is initially None) is returned, which is the correct behavior.
+    2. Single-node list. This is also correctly handled; the while loop executes once, `current.next` (which is None) is assigned to `prev`, `prev` becomes the original head, `current` becomes None, the loop terminates, and the original head node is returned, as desired.
+    3. List with multiple nodes. This is the general case and is handled correctly by the provided algorithm.
+
+- Score: 100.0
+
+- Feedback: The solution is well-written and efficient. No improvements are necessary. It perfectly addresses the problem description.
+
+DEBUG 2025-04-23 04:09:57,211 views 30485 123394135684800 Raw Gemini response for technical evaluation: - Correctness: Correct. The solution accurately identifies the first non-repeated character in the provided string, "swiss," and returns 'w'. It also handles the case where no non-repeated character exists.
+
+- Efficiency:
+    - Time Complexity: O(n), where n is the length of the string. The code iterates through the string twice: once to count character occurrences and again to find the first non-repeated character. Both iterations are linear with respect to the string length.
+    - Space Complexity: O(n) in the worst case, where n is the number of distinct characters in the string. This is because the `charCountMap` can store up to n key-value pairs if all characters in the string are unique. In the best and average cases, where the string contains repeated characters, the space complexity would be less than O(n) but still bounded by the number of distinct characters.
+
+- Code Quality: The code is well-structured and readable.
+    - The use of `LinkedHashMap` preserves the insertion order, ensuring that the first non-repeated character is returned.
+    - The code is clearly commented, explaining the purpose of each section.
+    - The `getOrDefault` method is used effectively to simplify the character counting logic.
+    - The `firstNonRepeatedCharacter` method is a static method, which is appropriate as it doesn't depend on any instance-specific state.
+    - The main method provides a clear example of how to use the `firstNonRepeatedCharacter` method.
+
+- Test Case Coverage:
+    - The current example string "swiss" is a good start. However, the following cases could be beneficial:
+        - Empty string: ""
+        - String with only one character: "a"
+        - String with all repeating characters: "aaaa"
+        - String with mixed case characters: "Swiss"
+        - String with spaces: "s w i s s"
+        - String with special characters: "s!w@i#s$s%"
+
+- Score: 90.0
+
+- Feedback:
+    - While the current solution is good, you could improve test case coverage by explicitly including a variety of test cases within the main method or using a unit testing framework like JUnit for more robust testing. Adding test cases with an empty string, strings with single characters, all repeated characters, mixed-case characters, spaces, and special characters would ensure the robustness of the function. Also, using toLowerCase() on the string before processing could be beneficial if the user wants the function to be case-insensitive. Lastly, while not strictly necessary, you can use streams to make the character counting a one-liner but might sacrifice some readability.
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class Solution {
+    public static void main(String[] args) {
+        String[] testCases = {"swiss", "", "a", "aaaa", "Swiss", "s w i s s", "s!w@i#s$s%"};
+        for (String input : testCases) {
+            Character result = firstNonRepeatedCharacter(input);
+
+            if (result != null) {
+                System.out.println("Input: \"" + input + "\", First non-repeated character: " + result);
+            } else {
+                System.out.println("Input: \"" + input + "\", No non-repeated character found.");
+            }
+        }
+    }
+
+    public static Character firstNonRepeatedCharacter(String str) {
+        Map<Character, Integer> charCountMap = new LinkedHashMap<>();
+
+        // Count the occurrences of each character
+        for (char c : str.toCharArray()) {
+            charCountMap.put(c, charCountMap.getOrDefault(c, 0) + 1);
+        }
+
+        // Find the first character with count 1
+        for (Map.Entry<Character, Integer> entry : charCountMap.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getKey();
+            }
+        }
+
+        return null; // No unique character found
+    }
+}
+```
+
+DEBUG 2025-04-23 04:10:04,196 views 30485 123394135684800 Raw Gemini response for technical evaluation: - Correctness: Correct. The solution correctly implements a thread-safe bounded buffer using `wait()` and `notifyAll()` for synchronization. It handles the cases where the buffer is full (in `put()`) and empty (in `take()`) appropriately.
+
+- Efficiency:
+    - Time Complexity: `put()` and `take()` methods have an average time complexity of O(1) because `add()` and `poll()` operations on `LinkedList` are O(1). However, in worst-case scenarios involving spurious wakeups, the threads might repeatedly wake up and check the condition (queue size), potentially leading to higher overhead, although the fundamental operations remain O(1).
+    - Space Complexity: O(capacity), where capacity is the maximum number of elements the buffer can hold.
+
+- Code Quality: The code is well-structured and readable. It uses generics, making the buffer type-safe. The comments clearly explain the purpose of each method and the synchronization logic. The use of `wait()` and `notifyAll()` is standard practice for this kind of problem.
+
+- Test Case Coverage:
+    - The current implementation lacks specific handling for interruption scenarios (e.g., if a thread waiting in `put()` or `take()` is interrupted). While `InterruptedException` is caught, the code doesn't explicitly handle the interruption status (e.g., by re-interrupting the thread).
+    - The implementation doesn't address the "lost wakeup" problem that can arise, although the use of `notifyAll()` instead of `notify()` reduces the chances.
+    - The tests should include:
+        - Multiple producers and consumers operating concurrently.
+        - Tests that fill the buffer to its capacity and then try to add more items.
+        - Tests that empty the buffer and then try to take items.
+        - Tests that interrupt the threads waiting to put or take.
+        - Tests to verify that the correct elements are being added and removed.
+        - Tests that verify the bounded nature, i.e., it never exceeds its capacity.
+
+- Score: 88.0
+
+- Feedback:
+
+1.  **Interrupt Handling:** The code throws `InterruptedException` which is correct, but it doesn't reset the interrupt flag on the thread when catching the exception. While not strictly *required* based on the prompt, it's good practice to either re-throw the exception or call `Thread.currentThread().interrupt()` to propagate the interrupt status. This ensures that the calling thread is aware of the interruption request.
+
+2.  **Spurious Wakeups:** While `notifyAll()` is used, mention the possibility of spurious wakeups in the comments, as these can occur even with `notifyAll()`. While using `notifyAll()` mitigates some of the issues surrounding `notify()`, there's still a small chance of a thread waking up without a guaranteed notification. The current implementation correctly uses the `while` loop to check the condition again after waking up, which addresses spurious wakeups.
+
+3.  **Consider using `ReentrantLock` and `Condition`:** While the `synchronized` keyword works, `ReentrantLock` and `Condition` objects offer more flexibility and control. Using them can enhance code readability and maintainability, especially for more complex synchronization scenarios. The standard idiom becomes:
+
+```java
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class BoundedBuffer<T> {
+    private final Queue<T> queue = new LinkedList<>();
+    private final int capacity;
+    private final Lock lock = new ReentrantLock();
+    private final Condition notFull = lock.newCondition();
+    private final Condition notEmpty = lock.newCondition();
+
+    public BoundedBuffer(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void put(T item) throws InterruptedException {
+        lock.lock();
+        try {
+            while (queue.size() == capacity) {
+                notFull.await();
+            }
+            queue.add(item);
+            notEmpty.signalAll();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public T take() throws InterruptedException {
+        lock.lock();
+        try {
+            while (queue.isEmpty()) {
+                notEmpty.await();
+            }
+            T item = queue.poll();
+            notFull.signalAll();
+            return item;
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+```
+
+4.  **Documentation:** Adding Javadoc to the class and methods explaining the purpose, usage, and thread-safety guarantees would significantly improve the code's maintainability and usability.
+
+DEBUG 2025-04-23 04:10:04,208 views 30485 123394135684800 Processing video file: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_7zZ485g.webm
+DEBUG 2025-04-23 04:10:04,798 views 30485 123394135684800 Exporting audio to: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_7zZ485g.wav
+DEBUG 2025-04-23 04:10:04,802 views 30485 123394135684800 Recording audio from WAV file
+DEBUG 2025-04-23 04:10:04,805 views 30485 123394135684800 Attempting speech recognition
+INFO 2025-04-23 04:10:10,215 views 30485 123394135684800 Transcribed text: tell me about a time you had to adapt to a significant change in work in your work environment how did you approach the situation and what is the outcome
+DEBUG 2025-04-23 04:10:10,217 views 30485 123394135684800 Cleaned up temporary file: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_7zZ485g.wav
+DEBUG 2025-04-23 04:10:10,217 views 30485 123394135684800 Sending evaluation prompt to Gemini
+DEBUG 2025-04-23 04:10:15,020 views 30485 123394135684800 Full Gemini response for behavioral evaluation: ## Behavioral Interview Response Evaluation
+
+Here's a comprehensive evaluation of the transcribed interview response, focusing on clarity, storytelling, problem-solving, professionalism, and relevance.
+
+**Transcribed Response:** "tell me about a time you had to adapt to a significant change in work in your work environment how did you approach the situation and what is the outcome"
+
+**1. Communication Clarity:**
+
+*   **Feedback:** The response is not a story, but rather a restatement of the question. It lacks clarity and provides no information about the situation, approach, or outcome. It's essentially an echo of the question itself. The lack of proper grammar and capitalization negatively impacts clarity.
+*   **Strengths:** There are no discernible strengths in communication clarity within the given response.
+*   **Areas for Improvement:** The candidate needs to provide a concrete example, using clear and concise language. They must use correct grammar, capitalization, and punctuation. The response should describe the change, their actions, and the result. They must use the STAR method (Situation, Task, Action, Result) to structure their answer.
+*   **Actionable Insights:** The candidate should practice formulating responses to common behavioral questions using the STAR method. Focus on speaking clearly and providing specific details.
+
+**2. Storytelling Effectiveness:**
+
+*   **Feedback:** There is no story presented. The response fails to engage the interviewer or provide any narrative context.
+*   **Strengths:** There is no evidence of storytelling ability in this response.
+*   **Areas for Improvement:** The candidate needs to develop their storytelling skills. They should learn to create a compelling narrative that demonstrates their abilities and experiences.
+*   **Actionable Insights:** The candidate should practice crafting stories around their past experiences, focusing on making them engaging and memorable. Visualizing the scenario and focusing on details can help.
+
+**3. Problem-Solving Demonstration:**
+
+*   **Feedback:** The response does not demonstrate any problem-solving skills as it simply repeats the question without providing an answer.
+*   **Strengths:** There is no demonstration of problem-solving abilities.
+*   **Areas for Improvement:** The candidate needs to showcase their problem-solving abilities by describing the challenges presented by the change, their approach to addressing those challenges, and the results of their efforts.
+*   **Actionable Insights:** The candidate should focus on identifying the specific problems they faced during the change and explaining their thought process in addressing those problems.
+
+**4. Professionalism:**
+
+*   **Feedback:** The lack of grammar, capitalization, and a coherent response reflects poorly on professionalism.
+*   **Strengths:** None evident.
+*   **Areas for Improvement:** The candidate needs to demonstrate professionalism through clear and articulate communication, proper grammar, and a structured response.
+*   **Actionable Insights:** The candidate should practice answering interview questions in a formal and professional manner. Seeking feedback on communication skills is recommended.
+
+**5. Relevance to the Question:**
+
+*   **Feedback:** While the response acknowledges the question, it fails to provide any relevant information or answer. It demonstrates a complete lack of understanding of how to answer a behavioral interview question.
+*   **Strengths:** The response makes an attempt to acknowledge the question.
+*   **Areas for Improvement:** The candidate needs to learn how to answer behavioral interview questions effectively. This involves understanding the STAR method and providing specific examples.
+*   **Actionable Insights:** The candidate should research the STAR method and practice applying it to common behavioral interview questions. They should brainstorm potential scenarios and prepare concise, relevant responses.
+
+**Overall Score:**
+
+15.0
+
+INFO 2025-04-23 04:10:15,021 views 30485 123394135684800 Evaluated behavioral response - Score: 50.0, Feedback: ## Behavioral Interview Response Evaluation
+
+Here's a comprehensive evaluation of the transcribed interview response, focusing on clarity, storytelling, problem-solving, professionalism, and relevance.
+
+**Transcribed Response:** "tell me about a time you had to adapt to a significant change in work in your work environment how did you approach the situation and what is the outcome"
+
+**1. Communication Clarity:**
+
+*   **Feedback:** The response is not a story, but rather a restatement of the question. It lacks clarity and provides no information about the situation, approach, or outcome. It's essentially an echo of the question itself. The lack of proper grammar and capitalization negatively impacts clarity.
+*   **Strengths:** There are no discernible strengths in communication clarity within the given response.
+*   **Areas for Improvement:** The candidate needs to provide a concrete example, using clear and concise language. They must use correct grammar, capitalization, and punctuation. The response should describe the change, their actions, and the result. They must use the STAR method (Situation, Task, Action, Result) to structure their answer.
+*   **Actionable Insights:** The candidate should practice formulating responses to common behavioral questions using the STAR method. Focus on speaking clearly and providing specific details.
+
+**2. Storytelling Effectiveness:**
+
+*   **Feedback:** There is no story presented. The response fails to engage the interviewer or provide any narrative context.
+*   **Strengths:** There is no evidence of storytelling ability in this response.
+*   **Areas for Improvement:** The candidate needs to develop their storytelling skills. They should learn to create a compelling narrative that demonstrates their abilities and experiences.
+*   **Actionable Insights:** The candidate should practice crafting stories around their past experiences, focusing on making them engaging and memorable. Visualizing the scenario and focusing on details can help.
+
+**3. Problem-Solving Demonstration:**
+
+*   **Feedback:** The response does not demonstrate any problem-solving skills as it simply repeats the question without providing an answer.
+*   **Strengths:** There is no demonstration of problem-solving abilities.
+*   **Areas for Improvement:** The candidate needs to showcase their problem-solving abilities by describing the challenges presented by the change, their approach to addressing those challenges, and the results of their efforts.
+*   **Actionable Insights:** The candidate should focus on identifying the specific problems they faced during the change and explaining their thought process in addressing those problems.
+
+**4. Professionalism:**
+
+*   **Feedback:** The lack of grammar, capitalization, and a coherent response reflects poorly on professionalism.
+*   **Strengths:** None evident.
+*   **Areas for Improvement:** The candidate needs to demonstrate professionalism through clear and articulate communication, proper grammar, and a structured response.
+*   **Actionable Insights:** The candidate should practice answering interview questions in a formal and professional manner. Seeking feedback on communication skills is recommended.
+
+**5. Relevance to the Question:**
+
+*   **Feedback:** While the response acknowledges the question, it fails to provide any relevant information or answer. It demonstrates a complete lack of understanding of how to answer a behavioral interview question.
+*   **Strengths:** The response makes an attempt to acknowledge the question.
+*   **Areas for Improvement:** The candidate needs to learn how to answer behavioral interview questions effectively. This involves understanding the STAR method and providing specific examples.
+*   **Actionable Insights:** The candidate should research the STAR method and practice applying it to common behavioral interview questions. They should brainstorm potential scenarios and prepare concise, relevant responses.
+
+**Overall Score:**
+
+15.0
+
+DEBUG 2025-04-23 04:10:15,036 views 30485 123394135684800 Processing video file: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_nWBOxLI.webm
+DEBUG 2025-04-23 04:10:15,663 views 30485 123394135684800 Exporting audio to: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_nWBOxLI.wav
+DEBUG 2025-04-23 04:10:15,669 views 30485 123394135684800 Recording audio from WAV file
+DEBUG 2025-04-23 04:10:15,686 views 30485 123394135684800 Attempting speech recognition
+INFO 2025-04-23 04:10:21,274 views 30485 123394135684800 Transcribed text: describe a situation where you had to back with someone who had a very different working style than your own how did you navigate the differences and how and what did you learn from the experience
+DEBUG 2025-04-23 04:10:21,278 views 30485 123394135684800 Cleaned up temporary file: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_nWBOxLI.wav
+DEBUG 2025-04-23 04:10:21,279 views 30485 123394135684800 Sending evaluation prompt to Gemini
+DEBUG 2025-04-23 04:10:27,931 views 30485 123394135684800 Full Gemini response for behavioral evaluation: Okay, here's a detailed evaluation of the provided (incomplete) interview response, focusing on the potential implied from the incomplete transcription, and offering guidance for a stronger, more complete answer.
+
+**Evaluation of Incomplete Response**
+
+Given the response is only the question transcribed, a true evaluation of the candidate's abilities is impossible. However, we can assess the *potential* quality based on the question itself and provide guidance for an ideal response.
+
+**1. Communication Clarity (Potential):**
+
+*   **Detailed Feedback:** Since the candidate hasn't spoken yet, there's nothing to evaluate here. However, the *clarity of the question itself* is excellent. It's straightforward and asks for a specific behavioral example.
+*   **Strengths:** The question is clearly articulated.
+*   **Areas of Improvement:**  N/A (no response provided)
+
+**2. Storytelling Effectiveness (Potential):**
+
+*   **Detailed Feedback:**  Impossible to evaluate. A good answer would leverage the STAR method (Situation, Task, Action, Result) to tell a compelling story.
+*   **Strengths:** N/A
+*   **Areas of Improvement:**  N/A
+
+**3. Problem-Solving Demonstration (Potential):**
+
+*   **Detailed Feedback:** The core of this question is problem-solving. A strong answer will highlight how the candidate identified the different work styles, analyzed the impact of those differences, and implemented a solution to navigate them. Since no answer is given, this remains unevaluated.
+*   **Strengths:** N/A
+*   **Areas of Improvement:** N/A
+
+**4. Professionalism (Potential):**
+
+*   **Detailed Feedback:**  Without any content, it's impossible to gauge the candidate's professionalism. A professional answer would avoid blaming or negativity and focus on collaborative solutions.
+*   **Strengths:** N/A
+*   **Areas of Improvement:** N/A
+
+**5. Relevance to the Question (Potential):**
+
+*   **Detailed Feedback:** The relevance depends entirely on the anecdote the candidate chooses and how effectively they relate it to the core issue of differing work styles.
+*   **Strengths:** N/A
+*   **Areas of Improvement:** N/A
+
+**General Guidance for Answering This Question:**
+
+To provide a *model* for a good answer, consider the following:
+
+1.  **Choose a Relevant Situation:** Select an example where the difference in work styles was significant and presented a real challenge. Examples could include working with someone who is very detail-oriented versus someone who is big-picture focused, or someone who is highly collaborative versus someone who prefers to work independently.
+
+2.  **Use the STAR Method:**
+    *   **Situation:** Briefly describe the project or task, the team, and the individual you were working with.
+    *   **Task:** Explain your role and the goal you were trying to achieve.
+    *   **Action:** *This is the most important part*. Clearly articulate the *specific actions* you took to understand and navigate the differences in work styles. Examples might include:
+        *   Having open and honest conversations about expectations and preferences.
+        *   Finding common ground and areas of overlap.
+        *   Compromising and adapting your own style.
+        *   Leveraging each other's strengths.
+        *   Establishing clear communication channels.
+    *   **Result:** Explain the outcome of your efforts. Did you successfully complete the project? Did the team function more effectively? What was the overall impact of your actions?
+
+3.  **Focus on Learning:** Reflect on what you learned from the experience. Did it change your perspective on different work styles? Did it make you a better collaborator? Did it give you new strategies for dealing with conflict?
+
+4.  **Stay Positive and Professional:** Frame the situation positively, even if there were challenges. Avoid blaming or negativity. Focus on your own actions and how you contributed to a positive outcome.
+
+**Example (Illustrative - not a complete response):**
+
+"In my previous role at [Company], I was part of a team developing a new marketing campaign. I'm generally a very structured and detail-oriented person, preferring to plan meticulously and follow a strict timeline. However, one of my team members, Sarah, had a much more flexible and spontaneous approach. She thrived on brainstorming and adapting the plan as new ideas emerged. Initially, this caused some friction because I felt like her spontaneity was disruptive to my workflow, and she felt like my structure was stifling her creativity..." (This would then continue with the actions taken and results achieved).
+
+**Score (Based on Incomplete Response):**
+
+Given the lack of a response, a fair score would be extremely low.
+
+**0.0**
+
+INFO 2025-04-23 04:10:27,932 views 30485 123394135684800 Evaluated behavioral response - Score: 50.0, Feedback: Okay, here's a detailed evaluation of the provided (incomplete) interview response, focusing on the potential implied from the incomplete transcription, and offering guidance for a stronger, more complete answer.
+
+**Evaluation of Incomplete Response**
+
+Given the response is only the question transcribed, a true evaluation of the candidate's abilities is impossible. However, we can assess the *potential* quality based on the question itself and provide guidance for an ideal response.
+
+**1. Communication Clarity (Potential):**
+
+*   **Detailed Feedback:** Since the candidate hasn't spoken yet, there's nothing to evaluate here. However, the *clarity of the question itself* is excellent. It's straightforward and asks for a specific behavioral example.
+*   **Strengths:** The question is clearly articulated.
+*   **Areas of Improvement:**  N/A (no response provided)
+
+**2. Storytelling Effectiveness (Potential):**
+
+*   **Detailed Feedback:**  Impossible to evaluate. A good answer would leverage the STAR method (Situation, Task, Action, Result) to tell a compelling story.
+*   **Strengths:** N/A
+*   **Areas of Improvement:**  N/A
+
+**3. Problem-Solving Demonstration (Potential):**
+
+*   **Detailed Feedback:** The core of this question is problem-solving. A strong answer will highlight how the candidate identified the different work styles, analyzed the impact of those differences, and implemented a solution to navigate them. Since no answer is given, this remains unevaluated.
+*   **Strengths:** N/A
+*   **Areas of Improvement:** N/A
+
+**4. Professionalism (Potential):**
+
+*   **Detailed Feedback:**  Without any content, it's impossible to gauge the candidate's professionalism. A professional answer would avoid blaming or negativity and focus on collaborative solutions.
+*   **Strengths:** N/A
+*   **Areas of Improvement:** N/A
+
+**5. Relevance to the Question (Potential):**
+
+*   **Detailed Feedback:** The relevance depends entirely on the anecdote the candidate chooses and how effectively they relate it to the core issue of differing work styles.
+*   **Strengths:** N/A
+*   **Areas of Improvement:** N/A
+
+**General Guidance for Answering This Question:**
+
+To provide a *model* for a good answer, consider the following:
+
+1.  **Choose a Relevant Situation:** Select an example where the difference in work styles was significant and presented a real challenge. Examples could include working with someone who is very detail-oriented versus someone who is big-picture focused, or someone who is highly collaborative versus someone who prefers to work independently.
+
+2.  **Use the STAR Method:**
+    *   **Situation:** Briefly describe the project or task, the team, and the individual you were working with.
+    *   **Task:** Explain your role and the goal you were trying to achieve.
+    *   **Action:** *This is the most important part*. Clearly articulate the *specific actions* you took to understand and navigate the differences in work styles. Examples might include:
+        *   Having open and honest conversations about expectations and preferences.
+        *   Finding common ground and areas of overlap.
+        *   Compromising and adapting your own style.
+        *   Leveraging each other's strengths.
+        *   Establishing clear communication channels.
+    *   **Result:** Explain the outcome of your efforts. Did you successfully complete the project? Did the team function more effectively? What was the overall impact of your actions?
+
+3.  **Focus on Learning:** Reflect on what you learned from the experience. Did it change your perspective on different work styles? Did it make you a better collaborator? Did it give you new strategies for dealing with conflict?
+
+4.  **Stay Positive and Professional:** Frame the situation positively, even if there were challenges. Avoid blaming or negativity. Focus on your own actions and how you contributed to a positive outcome.
+
+**Example (Illustrative - not a complete response):**
+
+"In my previous role at [Company], I was part of a team developing a new marketing campaign. I'm generally a very structured and detail-oriented person, preferring to plan meticulously and follow a strict timeline. However, one of my team members, Sarah, had a much more flexible and spontaneous approach. She thrived on brainstorming and adapting the plan as new ideas emerged. Initially, this caused some friction because I felt like her spontaneity was disruptive to my workflow, and she felt like my structure was stifling her creativity..." (This would then continue with the actions taken and results achieved).
+
+**Score (Based on Incomplete Response):**
+
+Given the lack of a response, a fair score would be extremely low.
+
+**0.0**
+
+DEBUG 2025-04-23 04:10:27,948 views 30485 123394135684800 Processing video file: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_qKdWEny.webm
+DEBUG 2025-04-23 04:10:28,474 views 30485 123394135684800 Exporting audio to: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_qKdWEny.wav
+DEBUG 2025-04-23 04:10:28,477 views 30485 123394135684800 Recording audio from WAV file
+DEBUG 2025-04-23 04:10:28,484 views 30485 123394135684800 Attempting speech recognition
+INFO 2025-04-23 04:10:34,165 views 30485 123394135684800 Transcribed text: give me an example of a time we had you heard them you made a mistake at work what did you do to address it and what did you learn from it
+DEBUG 2025-04-23 04:10:34,167 views 30485 123394135684800 Cleaned up temporary file: /home/stephen/Desktop/Interview AI/interview/videos/webcam-recording_qKdWEny.wav
+DEBUG 2025-04-23 04:10:34,167 views 30485 123394135684800 Sending evaluation prompt to Gemini
+DEBUG 2025-04-23 04:10:38,888 views 30485 123394135684800 Full Gemini response for behavioral evaluation: ## Behavioral Interview Response Evaluation
+
+Here's a comprehensive evaluation of the provided (transcribed) response, focusing on the key criteria:
+
+**Transcribed Response:** give me an example of a time we had you heard them you made a mistake at work what did you do to address it and what did you learn from it
+
+**Question:** Give me an example of a time you made a mistake at work. What did you do to address it, and what did you learn from it?
+
+### 1. Communication Clarity
+
+*   **Feedback:** The response is extremely poor in terms of clarity. It's barely intelligible and lacks coherent sentence structure. It reads as a garbled rephrasing of the question, not an actual answer. It's difficult to understand if the candidate even comprehended the question.
+*   **Strengths:** None. There is no understandable communication to assess.
+*   **Areas of Improvement:** The candidate *must* learn to articulate thoughts clearly and concisely. Practicing the STAR method (Situation, Task, Action, Result) would be beneficial. They need to focus on forming complete and grammatically correct sentences. They should also slow down their speaking pace and actively listen to the questions being asked.
+*   **Score:** 5.0
+
+### 2. Storytelling Effectiveness
+
+*   **Feedback:** There is no story present in the response. The candidate fails to present a situation, describe their actions, or outline the resulting outcome or lessons learned. There's simply no narrative structure at all.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate needs to learn the fundamental elements of storytelling. Specifically, they need to learn and consistently apply the STAR method to structure their responses. They must provide concrete details and context.
+*   **Score:** 5.0
+
+### 3. Problem-Solving Demonstration
+
+*   **Feedback:** The response provides absolutely no evidence of problem-solving ability. There is no described mistake, no actions taken to address it, and no analysis of what was learned.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate needs to understand that behavioral questions are designed to assess problem-solving and critical thinking skills. They must demonstrate how they identify problems, analyze situations, develop solutions, and learn from experience.
+*   **Score:** 5.0
+
+### 4. Professionalism
+
+*   **Feedback:** The lack of a coherent response reflects poorly on the candidate's professionalism. It suggests a lack of preparation or an inability to articulate thoughts in a professional setting.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate needs to practice answering common interview questions and refine their communication skills. Active listening and clear articulation are essential for projecting a professional image.
+*   **Score:** 5.0
+
+### 5. Relevance to the Question
+
+*   **Feedback:** The response is completely irrelevant to the question. Instead of providing an example of a mistake and how they addressed it, the response appears to be a fragmented repetition of the question itself.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate must ensure they fully understand the question before attempting to answer. If unsure, they should politely ask for clarification. Providing relevant and focused answers is crucial.
+*   **Score:** 5.0
+
+**Overall:**
+
+The response is exceptionally weak and demonstrates a significant lack of preparedness and communication skills. The candidate needs substantial improvement in their ability to understand interview questions, structure coherent responses, and articulate their thoughts clearly. A significant amount of practice and coaching is required.
+
+**Final Score:** 5.0
+
+INFO 2025-04-23 04:10:38,888 views 30485 123394135684800 Evaluated behavioral response - Score: 50.0, Feedback: ## Behavioral Interview Response Evaluation
+
+Here's a comprehensive evaluation of the provided (transcribed) response, focusing on the key criteria:
+
+**Transcribed Response:** give me an example of a time we had you heard them you made a mistake at work what did you do to address it and what did you learn from it
+
+**Question:** Give me an example of a time you made a mistake at work. What did you do to address it, and what did you learn from it?
+
+### 1. Communication Clarity
+
+*   **Feedback:** The response is extremely poor in terms of clarity. It's barely intelligible and lacks coherent sentence structure. It reads as a garbled rephrasing of the question, not an actual answer. It's difficult to understand if the candidate even comprehended the question.
+*   **Strengths:** None. There is no understandable communication to assess.
+*   **Areas of Improvement:** The candidate *must* learn to articulate thoughts clearly and concisely. Practicing the STAR method (Situation, Task, Action, Result) would be beneficial. They need to focus on forming complete and grammatically correct sentences. They should also slow down their speaking pace and actively listen to the questions being asked.
+*   **Score:** 5.0
+
+### 2. Storytelling Effectiveness
+
+*   **Feedback:** There is no story present in the response. The candidate fails to present a situation, describe their actions, or outline the resulting outcome or lessons learned. There's simply no narrative structure at all.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate needs to learn the fundamental elements of storytelling. Specifically, they need to learn and consistently apply the STAR method to structure their responses. They must provide concrete details and context.
+*   **Score:** 5.0
+
+### 3. Problem-Solving Demonstration
+
+*   **Feedback:** The response provides absolutely no evidence of problem-solving ability. There is no described mistake, no actions taken to address it, and no analysis of what was learned.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate needs to understand that behavioral questions are designed to assess problem-solving and critical thinking skills. They must demonstrate how they identify problems, analyze situations, develop solutions, and learn from experience.
+*   **Score:** 5.0
+
+### 4. Professionalism
+
+*   **Feedback:** The lack of a coherent response reflects poorly on the candidate's professionalism. It suggests a lack of preparation or an inability to articulate thoughts in a professional setting.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate needs to practice answering common interview questions and refine their communication skills. Active listening and clear articulation are essential for projecting a professional image.
+*   **Score:** 5.0
+
+### 5. Relevance to the Question
+
+*   **Feedback:** The response is completely irrelevant to the question. Instead of providing an example of a mistake and how they addressed it, the response appears to be a fragmented repetition of the question itself.
+*   **Strengths:** None.
+*   **Areas of Improvement:** The candidate must ensure they fully understand the question before attempting to answer. If unsure, they should politely ask for clarification. Providing relevant and focused answers is crucial.
+*   **Score:** 5.0
+
+**Overall:**
+
+The response is exceptionally weak and demonstrates a significant lack of preparedness and communication skills. The candidate needs substantial improvement in their ability to understand interview questions, structure coherent responses, and articulate their thoughts clearly. A significant amount of practice and coaching is required.
+
+**Final Score:** 5.0
+
+INFO 2025-04-23 04:10:38,902 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:10:43,637 basehttp 30485 123394135684800 "GET /interview/results/ HTTP/1.1" 200 48779
+INFO 2025-04-23 04:12:43,869 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 4227
+INFO 2025-04-23 04:15:32,085 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 10069
+INFO 2025-04-23 04:15:56,956 basehttp 30485 123394135684800 "GET /interview/results/ HTTP/1.1" 200 48779
+INFO 2025-04-23 04:16:02,015 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 10069
+INFO 2025-04-23 04:16:23,392 basehttp 30485 123394135684800 "GET /skill/create/ HTTP/1.1" 200 3775
+INFO 2025-04-23 04:19:12,417 basehttp 30485 123394135684800 "GET /skill/create/ HTTP/1.1" 200 8081
+INFO 2025-04-23 04:19:38,292 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 10069
+INFO 2025-04-23 04:25:07,240 basehttp 30485 123394135684800 "GET /login/ HTTP/1.1" 200 6517
+INFO 2025-04-23 04:25:58,789 basehttp 30485 123394135684800 "GET /register/ HTTP/1.1" 200 8499
+INFO 2025-04-23 04:26:21,036 basehttp 30485 123394135684800 "GET /login/ HTTP/1.1" 200 6517
+INFO 2025-04-23 04:26:25,088 basehttp 30485 123394135684800 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:26:25,099 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 10069
+INFO 2025-04-23 04:26:36,555 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:26:40,815 basehttp 30485 123394135684800 "GET /interview/results/ HTTP/1.1" 200 48779
+INFO 2025-04-23 04:26:47,159 basehttp 30485 123394135684800 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:26:47,209 basehttp 30485 123394135684800 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3709
+INFO 2025-04-23 04:26:55,163 basehttp 30485 123394135684800 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:26:55,196 basehttp 30485 123394135684800 "GET /admin/ HTTP/1.1" 200 11937
+INFO 2025-04-23 04:26:59,002 basehttp 30485 123394135684800 "GET /admin/core/question/ HTTP/1.1" 200 17878
+INFO 2025-04-23 04:26:59,055 basehttp 30485 123394135684800 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-04-23 04:26:59,358 basehttp 30485 123394135684800 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-04-23 04:27:09,693 basehttp 30485 123394135684800 "POST /admin/core/question/ HTTP/1.1" 200 12383
+INFO 2025-04-23 04:27:09,728 basehttp 30485 123394135684800 "GET /static/admin/js/cancel.js HTTP/1.1" 304 0
+INFO 2025-04-23 04:27:12,307 basehttp 30485 123394135684800 "POST /admin/core/question/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:27:12,333 basehttp 30485 123394135684800 "GET /admin/core/question/ HTTP/1.1" 200 10524
+INFO 2025-04-23 04:27:12,408 basehttp 30485 123394135684800 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-04-23 04:27:12,674 basehttp 30485 123394135684800 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-04-23 04:27:20,934 basehttp 30485 123394135684800 "GET /interview/results/ HTTP/1.1" 200 18648
+INFO 2025-04-23 04:27:26,267 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 9458
+INFO 2025-04-23 04:27:29,252 basehttp 30485 123394135684800 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:27:29,262 basehttp 30485 123394135684800 "GET /login/ HTTP/1.1" 200 6517
+INFO 2025-04-23 04:27:41,267 basehttp 30485 123394135684800 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:27:41,279 basehttp 30485 123394135684800 "GET /home/ HTTP/1.1" 200 10069
+INFO 2025-04-23 04:27:45,489 views 30485 123394135684800 Raw technical response: Implement a method to reverse a singly linked list iteratively and recursively. Analyze the time and space complexity of each approach.
+
+Write a program to implement a thread-safe singleton pattern in Java, considering potential issues like double-checked locking and reflection.
+
+Design and implement a data structure (e.g., a Trie or Bloom Filter) to efficiently store and search for a large set of strings. Discuss the trade-offs in terms of memory usage and search speed.
+
+INFO 2025-04-23 04:27:46,399 views 30485 123394135684800 Raw behavioral response: Tell me about a time you had to make a difficult decision with incomplete information. What was the situation, what decision did you make, and what was the outcome?
+
+Describe a situation where you disagreed with a colleague or supervisor. How did you handle the disagreement, and what was the result?
+
+Give me an example of a time you failed to meet a deadline or achieve a goal. What happened, what did you learn from the experience, and what would you do differently next time?
+
+INFO 2025-04-23 04:27:46,472 basehttp 30485 123394135684800 "GET /interview/start/ HTTP/1.1" 200 25129
+INFO 2025-04-23 04:28:01,966 basehttp 30485 123394135684800 "POST /interview/save_screen_recording/ HTTP/1.1" 200 36
+INFO 2025-04-23 04:28:01,995 basehttp 30485 123394127292096 "POST /interview/start/ HTTP/1.1" 302 0
+INFO 2025-04-23 04:28:02,015 basehttp 30485 123394127292096 "GET /interview/start/ HTTP/1.1" 200 25137

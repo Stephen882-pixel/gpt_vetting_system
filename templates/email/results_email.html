@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Interview Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4a69bd;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 0 0 5px 5px;
+            border: 1px solid #ddd;
+        }
+        .score-summary {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .score-circle {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            background: {% if average_score >= 80 %}#2ecc71{% elif average_score >= 60 %}#f39c12{% else %}#e74c3c{% endif %};
+        }
+        .question-section {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .question {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .response {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid #4a69bd;
+        }
+        .feedback {
+            font-style: italic;
+            color: #555;
+            margin-top: 10px;
+        }
+        .score {
+            font-weight: bold;
+            color: {% if average_score >= 80 %}#2ecc71{% elif average_score >= 60 %}#f39c12{% else %}#e74c3c{% endif %};
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Your Interview Results</h1>
+    </div>
+    
+    <div class="content">
+        <p>Hello {{ user.username }},</p>
+        
+        <p>Thank you for completing your interview. Here are your results:</p>
+        
+        <div class="score-summary">
+            <div class="score-circle">{{ average_score|floatformat:1 }}%</div>
+            <p>Overall Score</p>
+        </div>
+        
+        <div class="question-section">
+            <h2>Technical Questions</h2>
+            
+            {% for response in technical_responses %}
+            <div class="question-block">
+                <div class="question">{{ response.question.content }}</div>
+                <div class="response">
+                    <p>Your answer:</p>
+                    <pre>{{ response.content }}</pre>
+                    <p class="score">Score: {{ response.score|floatformat:1 }}%</p>
+                    <p class="feedback">{{ response.feedback }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="question-section">
+            <h2>Behavioral Questions</h2>
+            
+            {% for response in behavioral_responses %}
+            <div class="question-block">
+                <div class="question">{{ response.question.content }}</div>
+                <div class="response">
+                    <p><em>Video response submitted</em></p>
+                    <p class="score">Score: {{ response.score|floatformat:1 }}%</p>
+                    <p class="feedback">{{ response.feedback }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <p>We hope you found this interview experience helpful. Keep practicing and improving your skills!</p>
+    </div>
+    
+    <div class="footer">
+        <p>This is an automated email. Please do not reply to this message.</p>
+    </div>
+</body>
+</html>

@@ -2,114 +2,301 @@
 <html>
 <head>
     <title>Home - Interview Prep</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-hover: #3a56d4;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --danger-color: #ef476f;
+            --success-color: #06d6a0;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
+
         .home-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 40px auto;
-            padding: 20px;
+            padding: 30px;
         }
+
         .header {
             text-align: center;
             margin-bottom: 40px;
+            position: relative;
         }
+
         .header h2 {
-            font-size: 2.5em;
-            color: #333;
+            font-size: 2.8em;
+            color: var(--primary-color);
             margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
         }
+
+        .header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
         .header p {
-            font-size: 1.2em;
-            color: #666;
-            margin: 10px 0 20px 0;
+            font-size: 1.3em;
+            color: var(--text-secondary);
+            margin: 25px 0;
         }
+
         .action-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
         }
+
         .btn {
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
             text-decoration: none;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
         .btn-primary {
-            background-color: #4CAF50;
+            background-color: var(--primary-color);
             color: white;
         }
+
         .btn-primary:hover {
-            background-color: #45a049;
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
+
         .btn-secondary {
-            background-color: #2196F3;
+            background-color: var(--secondary-color);
             color: white;
         }
+
         .btn-secondary:hover {
-            background-color: #1e88e5;
+            background-color: #352fb3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
+
         .btn-danger {
-            background-color: #F44336;
+            background-color: var(--danger-color);
             color: white;
         }
+
         .btn-danger:hover {
-            background-color: #e53935;
+            background-color: #e43d65;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
         .skills-section, .recent-results-section {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .skills-section h3, .recent-results-section h3 {
+
+        .skills-section:hover, .recent-results-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .skills-section::before, .recent-results-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .skills-section::before {
+            background: var(--primary-color);
+        }
+
+        .recent-results-section::before {
+            background: var(--accent-color);
+        }
+
+        .section-title {
             font-size: 1.8em;
-            color: #333;
-            margin: 0 0 15px 0;
+            color: var(--text-primary);
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
         }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
         .skills-section ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .skills-section li {
             font-size: 1.1em;
-            color: #444;
-            padding: 10px 0;
+            color: var(--text-primary);
+            padding: 12px 15px;
             border-bottom: 1px solid #eee;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: rgba(67, 97, 238, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         .skills-section li:last-child {
             border-bottom: none;
+            margin-bottom: 0;
         }
+
         .skills-section li span {
-            font-weight: bold;
-            color: #4CAF50;
+            font-weight: 600;
+            color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
         }
+
         .recent-results-section p {
             font-size: 1.1em;
-            color: #444;
-            margin: 5px 0;
+            color: var(--text-primary);
+            margin: 12px 0;
         }
+
         .recent-results-section .no-results {
-            color: #777;
+            color: var(--text-secondary);
             font-style: italic;
+            text-align: center;
+            padding: 20px 0;
         }
+
         .recent-results-section .score {
-            font-weight: bold;
-            color: #4CAF50;
+            font-weight: 700;
+            color: var(--success-color);
+            background-color: rgba(6, 214, 160, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
         }
+
         .error-message {
-            color: #F44336;
+            color: var(--danger-color);
             text-align: center;
             font-size: 1.1em;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            padding: 12px 20px;
+            background-color: rgba(239, 71, 111, 0.1);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .info-card {
+            border-radius: var(--border-radius);
+            padding: 20px;
+            background-color: rgba(76, 201, 240, 0.1);
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .info-card h3 {
+            font-size: 1.4em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .home-container {
+                padding: 20px;
+                margin: 20px auto;
+            }
+
+            .header h2 {
+                font-size: 2.2em;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                padding: 10px 18px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -117,45 +304,61 @@
     <div class="home-container">
         <div class="header">
             <h2>Welcome, {{ user.username }}!</h2>
-            <p>Ready to ace your next interview? Let’s get started!</p>
-            <div class="action-buttons">
-                <a href="{% url 'skill_create' %}" class="btn btn-primary">Add Skill</a>
-                {% if skills %}
-                    <a href="{% url 'interview' %}" class="btn btn-primary">Start Interview</a>
-                    <a href="{% url 'interview_results' %}" class="btn btn-secondary">View Past Results</a>
+            <p>Ready to ace your next interview? Let's get started!</p>
+        </div>
+
+        {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="info-card">
+            <h3><i class="fas fa-lightbulb"></i> Get Started</h3>
+            <p>Add your programming skills, take practice interviews, and review your results to improve your performance.</p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{% url 'skill_create' %}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Skill</a>
+            {% if skills %}
+                <a href="{% url 'interview' %}" class="btn btn-primary"><i class="fas fa-play-circle"></i> Start Interview</a>
+                <a href="{% url 'interview_results' %}" class="btn btn-secondary"><i class="fas fa-chart-bar"></i> View Past Results</a>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-grid">
+            {% if skills %}
+                <div class="skills-section">
+                    <h3 class="section-title"><i class="fas fa-code"></i> Your Skills</h3>
+                    <ul>
+                        {% for skill in skills %}
+                            <li>{{ skill.language }} <span>{{ skill.proficiency }} years</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="recent-results-section">
+                <h3 class="section-title"><i class="fas fa-chart-line"></i> Recent Interview Results</h3>
+                {% if recent_interview %}
+                    <p><i class="far fa-calendar-alt"></i> Completed on: {{ recent_interview.completed_at|date:"F d, Y" }}</p>
+                    <p><i class="fas fa-question-circle"></i> Number of Questions: {{ recent_interview.total_questions }}</p>
+                    <p><i class="fas fa-star"></i> Average Score: <span class="score">{{ recent_interview.average_score }}%</span></p>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <a href="{% url 'interview_results' %}" class="btn btn-secondary">View Details</a>
+                    </div>
+                {% else %}
+                    <p class="no-results"><i class="fas fa-info-circle"></i> No recent interviews found. Start an interview to see your results!</p>
                 {% endif %}
             </div>
         </div>
 
-        {% if error %}
-            <p class="error-message">{{ error }}</p>
-        {% endif %}
-
-        {% if skills %}
-            <div class="skills-section">
-                <h3>Your Skills</h3>
-                <ul>
-                    {% for skill in skills %}
-                        <li>{{ skill.language }} <span>({{ skill.proficiency }} years)</span></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-
-        <div class="recent-results-section">
-            <h3>Recent Interview Results</h3>
-            {% if recent_interview %}
-                <p>Completed on: {{ recent_interview.completed_at|date:"F d, Y" }}</p>
-                <p>Number of Questions: {{ recent_interview.total_questions }}</p>
-                <p>Average Score: <span class="score">{{ recent_interview.average_score }}%</span></p>
-                <a href="{% url 'interview_results' %}" class="btn btn-secondary">View Details</a>
-            {% else %}
-                <p class="no-results">No recent interviews found. Start an interview to see your results!</p>
-            {% endif %}
-        </div>
-
         <div class="action-buttons">
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 Interview Prep Platform. All rights reserved.</p>
         </div>
     </div>
 </body>

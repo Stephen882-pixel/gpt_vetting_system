@@ -15,6 +15,11 @@ from pydub import AudioSegment
 from django.utils import timezone
 from django.http import JsonResponse
 
+
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 # Set up logging
 logger = logging.getLogger('interview')
 logging.basicConfig(level=logging.DEBUG)
@@ -390,6 +395,47 @@ def save_screen_recording(request):
     except Exception as e:
         print(f"Error saving chunk: {str(e)}")
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    
+
+
+def send_interview_results_email(user, technical_responses, behavioral_responses, average_score):
+    """
+    Send interview results to the user's email.
+    
+    Args:
+        user: The user who completed the interview
+        technical_responses: QuerySet of technical responses
+        behavioral_responses: QuerySet of behavioral responses
+        average_score: The calculated average score
+    """
+    subject = f'Your Interview Results - {average_score:.2f}%'
+    
+    # Create HTML content for the email
+    html_message = render_to_string('email/results_email.html', {
+        'user': user,
+        'technical_responses': technical_responses,
+        'behavioral_responses': behavioral_responses,
+        'average_score': average_score,
+    })
+    
+    # Plain text version of the email
+    plain_message = strip_tags(html_message)
+    
+    # Send email
+    try:
+        send_mail(
+            subject=subject,
+            message=plain_message,
+            from_email=None,  # Uses DEFAULT_FROM_EMAIL from settings
+            recipient_list=[user.email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send email to {user.email}: {str(e)}")
+        return False
+
 
 @login_required
 def interview_results(request):
@@ -402,9 +448,18 @@ def interview_results(request):
     total_questions = questions.count()
     average_score = sum(r.score for r in responses if r.score is not None) / responses.count() if responses.exists() else 0
     
+    # Send email with results
+    email_sent = send_interview_results_email(
+        request.user, 
+        technical_responses, 
+        behavioral_responses, 
+        average_score
+    )
+    
     return render(request, 'results.html', {
         'technical_responses': technical_responses,
         'behavioral_responses': behavioral_responses,
         'total_questions': total_questions,
         'average_score': round(average_score, 2),
+        'email_sent': email_sent,  # Pass to template to show success/failure message
     })
