@@ -5,8 +5,9 @@
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/theme/dracula.min.css">
-    <!-- Google Fonts -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -310,28 +311,50 @@
             display: none;
         }
         
+        .screen-recording-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+        
+        .recording-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--danger-color);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .question-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .progress-bar {
-                width: 100%;
-            }
-            
-            .meta-item {
-                padding: 8px 12px;
-            }
-            
-            .submit-button {
-                width: 100%;
-            }
+            .container { padding: 15px; }
+            .question-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .progress-bar { width: 100%; }
+            .meta-item { padding: 8px 12px; }
+            .submit-button { width: 100%; }
         }
     </style>
 </head>
@@ -341,6 +364,12 @@
             <h1>Interview Assessment</h1>
         </div>
     </header>
+
+    <!-- Screen Recording Indicator -->
+    <div id="screen-recording-indicator" class="screen-recording-indicator hidden">
+        <div class="recording-dot"></div>
+        <span>Screen Recording Active</span>
+    </div>
 
     <div class="container">
         <div class="question-card">
@@ -361,7 +390,7 @@
                 <div class="question-progress">
                     <span>Progress:</span>
                     <div class="progress-bar">
-                        <div class="progress" style="width: {{ current_question|floatformat:0|default:1 }}%"></div>
+                        <div class="progress" id="progress-bar"></div>
                     </div>
                     <span>{{ current_question }}/{{ total_questions }}</span>
                 </div>
@@ -409,7 +438,7 @@
                             <span id="char-count">0 characters</span>
                         </div>
                     </div>
-                    <textarea id="code-editor" name="content" style="display:none;"></textarea>
+                    <textarea id="code-editor" name="content"></textarea>
                 </div>
                 <div id="error-container" class="error-message hidden"></div>
             {% else %}
@@ -420,7 +449,7 @@
                     </div>
                     
                     <div class="video-wrapper">
-                        <video id="video-preview" controls autoplay muted></video>
+                        <video id="video-preview" autoplay muted></video>
                     </div>
                     
                     <div class="video-controls">
@@ -429,6 +458,9 @@
                         </button>
                         <button type="button" id="stop-recording" class="btn btn-danger" disabled>
                             <i class="fas fa-stop-circle"></i> Stop Recording
+                        </button>
+                        <button type="button" id="re-record" class="btn btn-secondary hidden">
+                            <i class="fas fa-redo"></i> Re-record
                         </button>
                     </div>
                     
@@ -440,6 +472,8 @@
                     </div>
                 </div>
             {% endif %}
+            
+            <input type="file" id="screen-recording-upload" name="screen_recording" accept="video/*" style="display:none;">
             
             <button type="submit" class="submit-button">
                 Submit Response
@@ -456,39 +490,185 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/edit/closebrackets.min.js"></script>
 
     <script>
-        let editor, stream;
-        
-        // Calculate progress percentage
+        // Global variables
+        let editor, stream, screenStream, mediaRecorder, screenMediaRecorder;
+        let recordedChunks = [];
+        let screenRecordedChunks = [];
+        let isScreenRecording = false;
+        const isFirstQuestion = {{ is_first_question|yesno:"true,false" }};
+        const remainingQuestions = {{ remaining_questions }};
         const currentQuestion = {{ current_question }};
         const totalQuestions = {{ total_questions }};
-        const progressPercent = (currentQuestion / totalQuestions) * 100;
-        document.querySelector('.progress').style.width = progressPercent + '%';
-
+        
+        // Initialize progress bar
+        function updateProgressBar() {
+            const progressPercent = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+        }
+        
+        // Screen recording functions
+        async function startScreenRecording() {
+            try {
+                screenStream = await navigator.mediaDevices.getDisplayMedia({
+                    video: { cursor: "always" },
+                    audio: false
+                });
+                
+                screenMediaRecorder = new MediaRecorder(screenStream, { mimeType: 'video/webm;codecs=vp8' });
+                
+                screenMediaRecorder.ondataavailable = event => {
+                    if (event.data.size > 0) {
+                        screenRecordedChunks.push(event.data);
+                        console.log('Chunk added, size:', event.data.size, 'Total chunks:', screenRecordedChunks.length);
+                    } else {
+                        console.warn('Empty chunk received');
+                    }
+                };
+                
+                screenMediaRecorder.onstop = async () => {
+                    console.log('Screen recording stopped. Current question:', currentQuestion);
+                    isScreenRecording = false;
+                    document.getElementById('screen-recording-indicator').classList.add('hidden');
+                    
+                    if (screenRecordedChunks.length > 0) {
+                        const blob = new Blob(screenRecordedChunks, { type: 'video/webm' });
+                        console.log('Final blob size:', blob.size);
+                        
+                        if (currentQuestion >= totalQuestions) {
+                            console.log('Attaching final recording to form');
+                            const file = new File([blob], 'screen-recording.webm', { type: 'video/webm' });
+                            const dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(file);
+                            document.getElementById('screen-recording-upload').files = dataTransfer.files;
+                        }
+                    } else {
+                        console.warn('No chunks recorded');
+                        if (currentQuestion >= totalQuestions) {
+                            alert('No screen recording captured for final submission.');
+                        }
+                    }
+                    
+                    if (screenStream) {
+                        screenStream.getTracks().forEach(track => track.stop());
+                        screenStream = null;
+                    }
+                    screenRecordedChunks = [];
+                };
+                
+                screenMediaRecorder.onerror = (event) => {
+                    console.error('MediaRecorder error:', event.error);
+                    stopScreenRecording();
+                    alert('Screen recording failed: ' + event.error.message);
+                };
+                
+                screenMediaRecorder.start(1000); // Timeslice for frequent chunks
+                isScreenRecording = true;
+                document.getElementById('screen-recording-indicator').classList.remove('hidden');
+                console.log('Screen recording started for question', currentQuestion);
+                
+                screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+                    if (isScreenRecording) {
+                        stopScreenRecording();
+                        alert('Screen recording stopped. You must share your screen for the entire interview.');
+                    }
+                });
+                
+                return true;
+            } catch (err) {
+                console.error('Error starting screen recording:', err);
+                isScreenRecording = false;
+                document.getElementById('screen-recording-indicator').classList.add('hidden');
+                alert('Unable to start screen recording: ' + err.message);
+                return false;
+            }
+        }
+        
+        function stopScreenRecording() {
+            if (isScreenRecording && screenMediaRecorder && screenMediaRecorder.state !== 'inactive') {
+                screenMediaRecorder.stop();
+            }
+        }
+        
+        async function saveScreenRecording(blob) {
+            if (blob.size === 0) {
+                console.warn('Empty blob, skipping save for question', currentQuestion);
+                return false;
+            }
+            
+            console.log('Saving screen recording for question', currentQuestion, 'Size:', blob.size);
+            const formData = new FormData();
+            formData.append('screen_recording', new File([blob], `screen-recording-q${currentQuestion}.webm`, { type: 'video/webm' }));
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            formData.append('question_number', currentQuestion);
+            
+            try {
+                const response = await fetch('{% url "save_screen_recording" %}', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    console.error('Failed to save screen recording:', response.status, response.statusText);
+                    alert('Failed to save screen recording. Please try again.');
+                    return false;
+                }
+                
+                console.log('Screen recording saved successfully for question', currentQuestion);
+                return true;
+            } catch (err) {
+                console.error('Error saving screen recording:', err);
+                alert('Error saving screen recording: ' + err.message);
+                return false;
+            }
+        }
+        
         // Form validation
-        function validateForm() {
+        async function validateForm() {
+            console.log('Validating form. Question:', currentQuestion, 'Total:', totalQuestions, 'Remaining:', remainingQuestions, 'Recording:', isScreenRecording);
+            const errorContainer = document.getElementById('error-container');
+            const videoError = document.getElementById('video-error');
+            
             {% if question.type == 'technical' %}
                 editor.save();
                 const codeContent = document.getElementById('code-editor').value.trim();
                 if (!codeContent) {
-                    const errorElement = document.getElementById('error-container');
-                    errorElement.textContent = 'Code cannot be empty.';
-                    errorElement.classList.remove('hidden');
+                    errorContainer.textContent = 'Code cannot be empty.';
+                    errorContainer.classList.remove('hidden');
                     return false;
                 }
+                errorContainer.classList.add('hidden');
             {% else %}
                 const videoUpload = document.getElementById('video-upload');
                 if (!videoUpload.files.length) {
-                    const errorElement = document.getElementById('video-error');
-                    errorElement.textContent = 'Please record a video before submitting.';
-                    errorElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please record a video before submitting.';
-                    errorElement.classList.remove('hidden');
+                    videoError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please record a video before submitting.';
+                    videoError.classList.remove('hidden');
                     return false;
                 }
+                videoError.classList.add('hidden');
             {% endif %}
+            
+            // Save chunks for intermediate questions
+            if (isScreenRecording && currentQuestion < totalQuestions && screenRecordedChunks.length > 0) {
+                console.log('Saving chunks for question', currentQuestion);
+                const blob = new Blob(screenRecordedChunks, { type: 'video/webm' });
+                const saved = await saveScreenRecording(blob);
+                if (!saved) {
+                    stopScreenRecording();
+                    return false;
+                }
+                screenRecordedChunks = [];
+            }
+            
+            // Stop recording on the last question
+            if (isScreenRecording && currentQuestion >= totalQuestions) {
+                console.log('Stopping recording for final submission');
+                stopScreenRecording();
+            }
+            
             return true;
         }
-
-        // Technical question: CodeMirror setup
+        
+        // Initialize CodeMirror for technical questions
         {% if question.type == 'technical' %}
             const skillLanguage = "{{ question.skill.language|lower|default:'java' }}";
             const languageModes = {
@@ -503,7 +683,7 @@
                 'javascript': `function solution() {\n    // Your solution here\n}\n\nconsole.log(solution());`,
                 'cpp': `#include <iostream>\n\nint main() {\n    // Your solution here\n    return 0;\n}`
             };
-
+            
             editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
                 mode: languageModes[skillLanguage] || 'text/x-java',
                 theme: "dracula",
@@ -519,133 +699,107 @@
                     "Shift-Tab": "indentLess"
                 }
             });
-
+            
             if (!editor.getValue().trim()) {
                 editor.setValue(templates[skillLanguage] || templates['java']);
             }
             
-            // Character count
             const updateCharCount = () => {
                 const count = editor.getValue().length;
-                document.getElementById('char-count').textContent = count + ' characters';
+                document.getElementById('char-count').textContent = `${count} characters`;
             };
             
             editor.on('change', updateCharCount);
             updateCharCount();
         {% endif %}
-
-        // Behavioral question: Video recording setup
+        
+        // Initialize webcam for behavioral questions
         {% if question.type != 'technical' %}
-            let mediaRecorder;
-            let recordedChunks = [];
-            const videoElement = document.getElementById('video-preview');
-            const startButton = document.getElementById('start-recording');
-            const stopButton = document.getElementById('stop-recording');
-            const videoUpload = document.getElementById('video-upload');
-            const videoError = document.getElementById('video-error');
-            const videoInfo = document.getElementById('video-info');
-            
-            // Add recording timer elements
-            const videoWrapper = document.querySelector('.video-wrapper');
-            const timerDisplay = document.createElement('div');
-            timerDisplay.className = 'recording-timer';
-            timerDisplay.style.position = 'absolute';
-            timerDisplay.style.top = '10px';
-            timerDisplay.style.right = '10px';
-            timerDisplay.style.background = 'rgba(0,0,0,0.6)';
-            timerDisplay.style.color = '#fff';
-            timerDisplay.style.padding = '5px 10px';
-            timerDisplay.style.borderRadius = '4px';
-            timerDisplay.style.fontSize = '14px';
-            timerDisplay.style.fontWeight = 'bold';
-            timerDisplay.style.display = 'none';
-            videoWrapper.appendChild(timerDisplay);
-            
-            let timer;
-            let recordingSeconds = 0;
-            
-            const updateTimer = () => {
-                const minutes = Math.floor(recordingSeconds / 60);
-                const seconds = recordingSeconds % 60;
-                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                recordingSeconds++;
-            };
-
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-                .then(mediaStream => {
-                    stream = mediaStream;
-                    videoElement.srcObject = stream;
-
-                    // Verify audio tracks
-                    const audioTracks = stream.getAudioTracks();
-                    if (audioTracks.length === 0) {
-                        videoError.innerHTML = '<i class="fas fa-exclamation-circle"></i> No microphone detected. Please connect a microphone and refresh.';
-                        videoError.classList.remove('hidden');
-                        startButton.disabled = true;
-                        stopButton.disabled = true;
-                        return;
-                    }
-
-                    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp8,opus' });
-
-                    mediaRecorder.ondataavailable = event => {
-                        recordedChunks.push(event.data);
-                    };
-
-                    mediaRecorder.onstop = () => {
-                        clearInterval(timer);
-                        timerDisplay.style.display = 'none';
-                        
-                        const blob = new Blob(recordedChunks, { type: 'video/webm' });
-                        const file = new File([blob], 'response.webm', { type: 'video/webm' });
-                        const dataTransfer = new DataTransfer();
-                        dataTransfer.items.add(file);
-                        videoUpload.files = dataTransfer.files;
-
-                        videoElement.srcObject = null;
-                        videoElement.src = URL.createObjectURL(blob);
-                        videoElement.muted = false;
-
-                        stream.getTracks().forEach(track => track.stop());
-                        stream = null;
-                        videoInfo.innerHTML = '<i class="fas fa-check-circle"></i> Recording stopped. Review your video and submit.';
-                    };
-
-                    startButton.addEventListener('click', () => {
+            async function initializeWebcam() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: true,
+                        audio: true
+                    });
+                    
+                    const videoPreview = document.getElementById('video-preview');
+                    const startRecordingBtn = document.getElementById('start-recording');
+                    const stopRecordingBtn = document.getElementById('stop-recording');
+                    const reRecordBtn = document.getElementById('re-record');
+                    
+                    videoPreview.srcObject = stream;
+                    
+                    startRecordingBtn.addEventListener('click', () => {
                         recordedChunks = [];
-                        recordingSeconds = 0;
-                        timerDisplay.textContent = '00:00';
-                        timerDisplay.style.display = 'block';
+                        mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+                        
+                        mediaRecorder.ondataavailable = event => {
+                            if (event.data.size > 0) {
+                                recordedChunks.push(event.data);
+                            }
+                        };
+                        
+                        mediaRecorder.onstop = () => {
+                            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                            const file = new File([blob], 'webcam-recording.webm', { type: 'video/webm' });
+                            const dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(file);
+                            document.getElementById('video-upload').files = dataTransfer.files;
+                            
+                            startRecordingBtn.disabled = false;
+                            stopRecordingBtn.disabled = true;
+                            reRecordBtn.classList.remove('hidden');
+                        };
                         
                         mediaRecorder.start();
-                        startButton.disabled = true;
-                        stopButton.disabled = false;
-                        videoError.classList.add('hidden');
-                        videoInfo.innerHTML = '<i class="fas fa-microphone"></i> Recording... Speak clearly into your microphone.';
-                        
-                        timer = setInterval(updateTimer, 1000);
+                        startRecordingBtn.disabled = true;
+                        stopRecordingBtn.disabled = false;
+                        reRecordBtn.classList.add('hidden');
                     });
-
-                    stopButton.addEventListener('click', () => {
-                        mediaRecorder.stop();
-                        startButton.disabled = false;
-                        stopButton.disabled = true;
+                    
+                    stopRecordingBtn.addEventListener('click', () => {
+                        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                            mediaRecorder.stop();
+                        }
                     });
-                })
-                .catch(err => {
-                    console.error('Error accessing media devices:', err);
-                    videoError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Unable to access camera or microphone. Please grant permissions and ensure devices are connected.';
-                    videoError.classList.remove('hidden');
-                    startButton.disabled = true;
-                    stopButton.disabled = true;
-                });
-
-            window.addEventListener('beforeunload', () => {
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
+                    
+                    reRecordBtn.addEventListener('click', () => {
+                        document.getElementById('video-upload').value = '';
+                        recordedChunks = [];
+                        startRecordingBtn.disabled = false;
+                        stopRecordingBtn.disabled = true;
+                        reRecordBtn.classList.add('hidden');
+                    });
+                } catch (err) {
+                    console.error('Error accessing webcam:', err);
+                    document.getElementById('video-error').innerHTML = '<i class="fas fa-exclamation-circle"></i> Unable to access webcam. Please grant permissions.';
+                    document.getElementById('video-error').classList.remove('hidden');
                 }
-            });
+            }
         {% endif %}
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            updateProgressBar();
+            
+            if (isFirstQuestion) {
+                await startScreenRecording();
+            }
+            
+            {% if question.type != 'technical' %}
+                await initializeWebcam();
+            {% endif %}
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (isScreenRecording) {
+                stopScreenRecording();
+            }
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
     </script>
 </body>
 </html>

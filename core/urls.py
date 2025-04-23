@@ -9,4 +9,5 @@ urlpatterns = [
     path('skill/create/', views.skill_create, name='skill_create'),
     path('interview/start/', views.interview, name='interview'),
     path('interview/results/', views.interview_results, name='interview_results'),
+    path('interview/save_screen_recording/', views.save_screen_recording, name='save_screen_recording'),
 ]

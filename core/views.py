@@ -6,12 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 import google.generativeai as genai
-from .models import User, ProgrammingSkill, Question, Response
+from .models import Interview, User, ProgrammingSkill, Question, Response,ScreenRecordingChunk
 from .forms import UserRegistrationForm, ProgrammingSkillForm, ResponseForm
 import logging
 from .utils import generate_questions, evaluate_with_gemini, evaluate_behavioral_response
 import speech_recognition as sr
 from pydub import AudioSegment
+from django.utils import timezone
+from django.http import JsonResponse
 
 # Set up logging
 logger = logging.getLogger('interview')
@@ -253,7 +255,6 @@ def evaluate_behavioral_response(video_path, question_content):
     except Exception as e:
         logger.error(f"Error evaluating behavioral response: {str(e)}")
         return 50.0, f"Unable to evaluate video response due to an error: {str(e)}"
-
 @login_required
 def interview(request):
     skills = ProgrammingSkill.objects.filter(user=request.user)
@@ -261,6 +262,9 @@ def interview(request):
         request.session['error'] = "Please add a skill before starting an interview."
         return redirect('home')
 
+    # Get current interview or create one
+    current_interview = Interview.objects.filter(user=request.user, end_time__isnull=True).first()
+    
     # Get or generate exactly 6 questions
     questions = Question.objects.filter(user=request.user)
     if questions.count() != 6:
@@ -280,11 +284,20 @@ def interview(request):
             )
         questions = Question.objects.filter(user=request.user).order_by('id')[:6]
 
+        # Create a new interview session if questions were just generated
+        if not current_interview:
+            current_interview = Interview.objects.create(user=request.user)
+
     total_questions = 6
     answered_questions = Response.objects.filter(question__in=questions).count()
     remaining_questions = total_questions - answered_questions
 
     if remaining_questions == 0:
+        # Interview completed
+        if current_interview:
+            current_interview.end_time = timezone.now()
+            current_interview.save()
+            
         for response in Response.objects.filter(question__in=questions):
             if response.score is None:
                 if response.question.type == 'technical':
@@ -309,6 +322,8 @@ def interview(request):
                     'total_questions': total_questions,
                     'remaining_questions': remaining_questions,
                     'current_question': answered_questions + 1,
+                    'is_first_question': answered_questions == 0,
+                    'interview': current_interview,
                 })
             Response.objects.create(question=current_question, content=content)
         else:
@@ -320,8 +335,18 @@ def interview(request):
                     'total_questions': total_questions,
                     'remaining_questions': remaining_questions,
                     'current_question': answered_questions + 1,
+                    'is_first_question': answered_questions == 0,
+                    'interview': current_interview,
                 })
             Response.objects.create(question=current_question, video=video)
+        
+        # Save screen recording if final question
+        if remaining_questions == 1:
+            screen_recording = request.FILES.get('screen_recording')
+            if screen_recording and current_interview:
+                current_interview.screen_recording = screen_recording
+                current_interview.save()
+                
         return redirect('interview')
 
     return render(request, 'interview.html', {
@@ -329,7 +354,42 @@ def interview(request):
         'total_questions': total_questions,
         'remaining_questions': remaining_questions,
         'current_question': answered_questions + 1,
+        'is_first_question': answered_questions == 0,
+        'interview': current_interview,
     })
+
+@login_required
+def save_screen_recording(request):
+    if request.method != 'POST' or not request.FILES.get('screen_recording'):
+        return JsonResponse({'status': 'error', 'message': 'No file provided'}, status=400)
+    
+    current_interview = Interview.objects.filter(user=request.user, end_time__isnull=True).first()
+    if not current_interview:
+        return JsonResponse({'status': 'error', 'message': 'No active interview'}, status=400)
+    
+    screen_recording = request.FILES['screen_recording']
+    question_number = request.POST.get('question_number', 'unknown')
+    
+    # Validate file
+    if screen_recording.size > 100 * 1024 * 1024:  # 100MB limit
+        return JsonResponse({'status': 'error', 'message': 'File too large'}, status=400)
+    if not screen_recording.content_type.startswith('video/'):
+        return JsonResponse({'status': 'error', 'message': 'Invalid file type'}, status=400)
+    
+    # Save chunk
+    try:
+        chunk = ScreenRecordingChunk.objects.create(
+            interview=current_interview,
+            user=request.user,
+            question_number=question_number,
+            recording=screen_recording,
+            created_at=timezone.now()
+        )
+        print(f"Saved chunk for question {question_number}: {chunk.recording.name}, Size: {screen_recording.size}")
+        return JsonResponse({'status': 'success', 'chunk_id': chunk.id})
+    except Exception as e:
+        print(f"Error saving chunk: {str(e)}")
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
 @login_required
 def interview_results(request):
